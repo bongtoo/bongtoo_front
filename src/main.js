@@ -5,6 +5,10 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+import TheButton from './components/Button/BaseButton'
+
+Vue.component('the-button',TheButton)
+
 new Vue({
   router,
   store,
