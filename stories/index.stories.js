@@ -1,33 +1,40 @@
 /* eslint-disable react/react-in-jsx-scope */
 
-import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
+import {
+  storiesOf
+} from '@storybook/vue';
+import {
+  action
+} from '@storybook/addon-actions';
+import {
+  linkTo
+} from '@storybook/addon-links';
 
-import MyButton from './MyButton';
-import Welcome from './Welcome';
+import BaseButton from '../src/components/Button/BaseButton.vue'
 
-storiesOf('Welcome', module).add('to Storybook', () => ({
-  components: { Welcome },
-  template: '<welcome :showApp="action" />',
-  methods: { action: linkTo('Button') },
-}));
-
-storiesOf('Button', module)
-  .add('with text', () => ({
-    components: { MyButton },
-    template: '<my-button @click="action">Hello Button</my-button>',
-    methods: { action: action('clicked') },
+storiesOf('Button2', module)
+  .add('hi', () => ({
+    template: '<div>sss</div>'
   }))
-  .add('with JSX', () => ({
-    components: { MyButton },
-    render(h) {
-      return <my-button onClick={this.action}>With JSX</my-button>;
+  .add('Default', () => ({
+    components: {
+      'base-button': BaseButton
     },
-    methods: { action: linkTo('clicked') },
+    template: //html
+      `
+    <base-button>
+    </base-button>
+    asdf
+    `
   }))
-  .add('with some emoji', () => ({
-    components: { MyButton },
-    template: '<my-button @click="action">😀 😎 👍 💯</my-button>',
-    methods: { action: action('clicked') },
-  }));
+  .add('text with', () => ({
+    components: {
+      'base-button': BaseButton
+    },
+    template: //html
+      `
+    <base-button>
+     With Text
+    </base-button>
+    `
+  }))
