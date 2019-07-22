@@ -99,3 +99,22 @@ storiesOf('Button2', module)
     </base-button>
     `
   }))
+
+import TheSelect from '../src/components/Select/TheSelect'
+
+storiesOf('TheSelect', module)
+  .add('default', () => ({
+    data() {
+      return {
+        cityValue: "",
+        data: ['hi', 'hello', 'hi', 'bye']
+      }
+    },
+    components: {
+      'the-select':TheSelect
+    },
+    template: //html
+    `
+    <the-select></the-select>
+    `
+  }))
