@@ -23,17 +23,96 @@ storiesOf('Button2', module)
     template: //html
       `
     <base-button>
+      radius 1
     </base-button>
-    asdf
     `
   }))
-  .add('text with', () => ({
+  .add('radius = 2', () => ({
     components: {
       'base-button': BaseButton
     },
     template: //html
       `
-    <base-button>
+    <base-button :radius="2">
+      radius 2
+    </base-button>
+    `
+  }))
+  .add('radius = 3', () => ({
+    components: {
+      'base-button': BaseButton
+    },
+    template: //html
+      `
+    <base-button :radius="3">
+      radius 3
+    </base-button>
+    `
+  }))
+  .add(':color="white"', () => ({
+    components: {
+      'base-button': BaseButton
+    },
+    template: //html
+      `
+    <div style="background:orange;">
+    <base-button color="white">
+    radius 3
+    </base-button>
+    </div>
+    `
+  }))
+  .add('color="pupple"', () => ({
+    components: {
+      'base-button': BaseButton
+    },
+    template: //html
+      `
+    <base-button color="pupple">
+    radius 3
+    </base-button>
+    `
+  }))
+  .add('color="pupple" :line="true"', () => ({
+    components: {
+      'base-button': BaseButton
+    },
+    template: //html
+      `
+    <base-button color="pupple" :line="true">
+    radius 3
+    </base-button>
+    `
+  }))
+  .add('color="ocean"', () => ({
+    components: {
+      'base-button': BaseButton
+    },
+    template: //html
+      `
+    <base-button color="ocean">
+    radius 3
+    </base-button>
+    `
+  }))
+  .add('color="ocean" :line="true"', () => ({
+    components: {
+      'base-button': BaseButton
+    },
+    template: //html
+      `
+    <base-button color="ocean" :line="true">
+    radius 3
+    </base-button>
+    `
+  }))
+  .add('other size with width,height attr', () => ({
+    components: {
+      'base-button': BaseButton
+    },
+    template: //html
+      `
+    <base-button style="width:150px">
      With Text
     </base-button>
     `
