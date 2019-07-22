@@ -13,9 +13,6 @@ import {
 import BaseButton from '../src/components/Button/BaseButton.vue'
 
 storiesOf('Button2', module)
-  .add('hi', () => ({
-    template: '<div>sss</div>'
-  }))
   .add('Default', () => ({
     components: {
       'base-button': BaseButton
@@ -49,61 +46,46 @@ storiesOf('Button2', module)
     </base-button>
     `
   }))
-  .add(':color="white"', () => ({
+  .add('색 비교', () => ({
     components: {
       'base-button': BaseButton
     },
     template: //html
       `
-    <div style="background:orange;">
-    <base-button color="white">
-    radius 3
-    </base-button>
+    <div>
+      <div style="margin:5px;background:orange;">
+        <base-button color="white">
+        white
+        </base-button>
+      </div>
+      <div style="margin:5px;">
+        <base-button >
+        default
+        </base-button>
+        <base-button type="line">
+        default line
+        </base-button>
+      </div>
+      <div style="margin:5px;">
+        <base-button color="pupple">
+        pupple
+        </base-button>
+        <base-button color="pupple" type="line">
+        pupple line
+        </base-button>
+      </div>
+      <div style="margin:5px;">
+        <base-button color="ocean">
+          ocean
+        </base-button>
+        <base-button color="ocean" type="line">
+          ocean line
+        </base-button>
+        <base-button color="ocean" type="fill">
+          ocean fill
+        </base-button>
+      </div>
     </div>
-    `
-  }))
-  .add('color="pupple"', () => ({
-    components: {
-      'base-button': BaseButton
-    },
-    template: //html
-      `
-    <base-button color="pupple">
-    radius 3
-    </base-button>
-    `
-  }))
-  .add('color="pupple" :line="true"', () => ({
-    components: {
-      'base-button': BaseButton
-    },
-    template: //html
-      `
-    <base-button color="pupple" :line="true">
-    radius 3
-    </base-button>
-    `
-  }))
-  .add('color="ocean"', () => ({
-    components: {
-      'base-button': BaseButton
-    },
-    template: //html
-      `
-    <base-button color="ocean">
-    radius 3
-    </base-button>
-    `
-  }))
-  .add('color="ocean" :line="true"', () => ({
-    components: {
-      'base-button': BaseButton
-    },
-    template: //html
-      `
-    <base-button color="ocean" :line="true">
-    radius 3
-    </base-button>
     `
   }))
   .add('other size with width,height attr', () => ({

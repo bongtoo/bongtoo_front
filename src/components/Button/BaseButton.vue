@@ -11,9 +11,9 @@ export default {
       type: Number,
       default: 1
     },
-    line: {
-      type: Boolean,
-      default: false
+    type: {
+      type: String,
+      default: ""
     },
     color: {
       type: String,
@@ -36,20 +36,18 @@ export default {
     },
     styleClass() {
       const color = this.color,
-        line = this.line;
-      if (color === "white") {
-        return "white";
-      } else if (color === "pupple") {
-        if (line === true) {
-          return "puppleline";
-        }
-        return "pupple";
-      } else if (color === "ocean") {
-        if (line === true) {
-          return "oceanline";
-        }
-        return "ocean";
+        type = this.type,
+        ColorList = new Array("", "white", "pupple", "ocean"),
+        TypeList = new Array("", "line", "fill");
+      let ret = "";
+      if (ColorList.includes(color)) {
+        ret += color;
       }
+      if (TypeList.includes(type)) {
+        ret += type;
+      }
+      console.log(ret);
+      return ret;
     }
   }
 };
@@ -67,16 +65,29 @@ $button-back__pupple: $pupple-lighten1;
 $button-line__pupple: $pupple;
 $button-font__pupple: $pupple;
 
+$ocean-color: #665fd7;
+
 @mixin config-color($font, $back, $line) {
   color: $font;
   background: $back;
   border-color: $line;
   &:hover {
-    background: lighten($color: $back, $amount: 1.2);
+    background: darken($color: $back, $amount: 5);
   }
   &:active {
-  transition: 0.2s;
-    background: darken($color: $back, $amount: 5);
+    background: darken($color: $back, $amount: 10);
+    border-color: darken($color: $line, $amount: 10);
+  }
+}
+@mixin config-color__line($font, $back, $line, $amont) {
+  color: $font;
+  background: $back;
+  border-color: $line;
+  &:hover {
+    background: lighten($color: $line, $amount: $amont);
+  }
+  &:active {
+    background: lighten($color: $line, $amount: $amont - 5);
     border-color: darken($color: $line, $amount: 10);
   }
 }
@@ -89,20 +100,28 @@ button {
   box-sizing: border-box;
   border: 1px solid;
   border-radius: 40px;
-  transition: 0.1s;
+  font-weight: 450;
+  // transition: 0.1s;
   @include config-color(
     $button-font__blue,
     $button-back__blue,
     $button-line__blue
   );
 }
-
-.white {
-  @include config-color(#fff, #ffffff00, #fff);
+.line {
+  @include config-color__line($button-font__blue, #fff, $button-line__blue, 25);
 }
-
-.puppleline {
-  @include config-color($button-font__pupple, #fff, $button-line__pupple);
+.white {
+  color: #fff;
+  background: rgba(255, 255, 255, 0);
+  border-color: #fff;
+  &:hover {
+    background: rgba(233, 233, 233, 0.15);
+  }
+  &:active {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.25);
+  }
 }
 
 .pupple {
@@ -113,13 +132,22 @@ button {
   );
 }
 
+.puppleline {
+  @include config-color__line(
+    $button-font__pupple,
+    #fff,
+    $button-line__pupple,
+    40
+  );
+}
+
 .ocean {
-  @include config-color(#665fd7, #dad8ff, #665fd7);
+  @include config-color($ocean-color, #dad8ff, $ocean-color);
 }
 .oceanline {
-  @include config-color(#665fd7, #fff, #665fd7);
+  @include config-color__line($ocean-color, #fff, $ocean-color, 30);
 }
 .oceanfill {
-  @include config-color(#fff, #665fd7, #665fd7);
+  @include config-color(#fff, $ocean-color, $ocean-color);
 }
 </style>
