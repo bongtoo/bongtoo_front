@@ -1,15 +1,8 @@
 <template>
   <div class="home">
-    <the-button>홈 버튼</the-button>
-    <el-select v-model="selectValue" autocomplete filterable>
-      <el-option
-        class="Site-Option"
-        v-for="(option,index) in optionList"
-        :key="'option'+index"
-        :label="option"
-        :value="index"
-      ></el-option>
-    </el-select>
+    <div class="home-banner">
+
+    </div>
   </div>
 </template>
 
@@ -26,6 +19,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// @import "@/assets/css/index.scss";
+@import "@/assets/css/index.scss";
+.home {
+}
 </style>
 
