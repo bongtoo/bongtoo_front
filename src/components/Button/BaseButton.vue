@@ -1,5 +1,5 @@
 <template>
-  <button class="BaseButton" :class="styleClass" :style="styleObj">
+  <button class="BaseButton" :class="styleClass">
     <slot>버튼</slot>
   </button>
 </template>
@@ -9,7 +9,7 @@ export default {
   props: {
     radius: {
       type: Number,
-      default: 1
+      default: 0
     },
     type: {
       type: String,
@@ -24,7 +24,8 @@ export default {
   data() {
     return {
       ColorList: ["", "white", "pupple", "ocean"],
-      TypeList: ["", "line", "fill"]
+      TypeList: ["", "line", "fill"],
+      RadiusList: ["", "button__radius1", "button__radius2"]
     };
   },
   computed: {
@@ -35,14 +36,10 @@ export default {
         return { borderRadius: "5px" };
       }
     },
-    styleObj() {
-      const obj = {};
-      Object.assign(obj, this.getReadius);
-      return obj;
-    },
     styleClass() {
       const color = this.color,
-        type = this.type;
+        type = this.type,
+        styleList = [];
       let ret = "";
       if (this.ColorList.includes(color)) {
         ret += color;
@@ -50,7 +47,9 @@ export default {
       if (this.TypeList.includes(type)) {
         ret += type;
       }
-      return ret;
+      styleList.push(ret);
+      styleList.push(this.RadiusList[this.radius]);
+      return styleList;
     }
   }
 };
@@ -110,6 +109,12 @@ button {
     $button-back__blue,
     $button-line__blue
   );
+}
+button.button__radius1 {
+  border-radius: 18px;
+}
+button.button__radius2 {
+  border-radius: 5px;
 }
 .line {
   @include config-color__line($button-font__blue, #fff, $button-line__blue, 25);

@@ -6,7 +6,7 @@
       <base-button class="TheBanner-Postbuton">작성하기</base-button>
       <div class="TheBanner-Search">
         <base-select></base-select>
-        <base-button :radius="3"></base-button>
+        <base-button style="borderTopLeftRadius:0px;borderBottomLeftRadius:0px" :radius="2"></base-button>
       </div>
     </div>
   </nav>
@@ -55,14 +55,11 @@ export default {
   }
   &-Search {
     display: flex;
+
     align-items: stretch;
     .el-input__inner {
       border-top-right-radius: 0px;
       border-bottom-right-radius: 0px;
-    }
-    .BaseButton{
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
     }
   }
 }
