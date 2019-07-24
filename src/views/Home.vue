@@ -1,12 +1,11 @@
 <template>
   <div class="home">
-    <div class="home-banner">
-
-    </div>
+    <the-banner></the-banner>
   </div>
 </template>
 
 <script>
+import the_banner from "../components/Banner/TheBanner";
 export default {
   name: "home",
   data() {
@@ -14,6 +13,9 @@ export default {
       selectValue: "",
       optionList: ["hi", "hello", "bye", "goodbye"]
     };
+  },
+  components: {
+    "the-banner": the_banner
   }
 };
 </script>

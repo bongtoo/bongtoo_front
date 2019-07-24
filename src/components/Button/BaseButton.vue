@@ -50,7 +50,6 @@ export default {
       if (this.TypeList.includes(type)) {
         ret += type;
       }
-      console.log(ret);
       return ret;
     }
   }
@@ -68,8 +67,6 @@ $button-font__blue: $blue;
 $button-back__pupple: $pupple-lighten1;
 $button-line__pupple: $pupple;
 $button-font__pupple: $pupple;
-
-
 
 @mixin config-color($font, $back, $line) {
   color: $font;
