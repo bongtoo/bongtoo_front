@@ -21,6 +21,12 @@ export default {
     }
   },
   name: "BaseButton",
+  data() {
+    return {
+      ColorList: ["", "white", "pupple", "ocean"],
+      TypeList: ["", "line", "fill"]
+    };
+  },
   computed: {
     getReadius() {
       if (this.radius === 2) {
@@ -36,14 +42,12 @@ export default {
     },
     styleClass() {
       const color = this.color,
-        type = this.type,
-        ColorList = new Array("", "white", "pupple", "ocean"),
-        TypeList = new Array("", "line", "fill");
+        type = this.type;
       let ret = "";
-      if (ColorList.includes(color)) {
+      if (this.ColorList.includes(color)) {
         ret += color;
       }
-      if (TypeList.includes(type)) {
+      if (this.TypeList.includes(type)) {
         ret += type;
       }
       console.log(ret);
@@ -64,8 +68,6 @@ $button-font__blue: $blue;
 $button-back__pupple: $pupple-lighten1;
 $button-line__pupple: $pupple;
 $button-font__pupple: $pupple;
-
-$ocean-color: #665fd7;
 
 @mixin config-color($font, $back, $line) {
   color: $font;
@@ -142,12 +144,12 @@ button {
 }
 
 .ocean {
-  @include config-color($ocean-color, #dad8ff, $ocean-color);
+  @include config-color($ocean, $ocean-lighten1, $ocean);
 }
 .oceanline {
-  @include config-color__line($ocean-color, #fff, $ocean-color, 30);
+  @include config-color__line($ocean, #fff, $ocean, 30);
 }
 .oceanfill {
-  @include config-color(#fff, $ocean-color, $ocean-color);
+  @include config-color(#fff, $ocean, $ocean);
 }
 </style>

@@ -14,5 +14,8 @@ locale.use(lang)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
 
-import TheButton from './components/Button/BaseButton'
-Vue.component('the-button', TheButton)
+// my global components
+import BaseButton from '@/components/Button/BaseButton.vue'
+import BaseSelect from '@/components/Select/BaseSelect.vue'
+Vue.component('base-button', BaseButton)
+Vue.component('base-select', BaseSelect)

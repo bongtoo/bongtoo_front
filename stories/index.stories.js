@@ -10,13 +10,10 @@ import {
   linkTo
 } from '@storybook/addon-links';
 
-import BaseButton from '../src/components/Button/BaseButton.vue'
+// import BaseButton from '../src/components/Button/BaseButton.vue'
 
 storiesOf('Button2', module)
   .add('Default', () => ({
-    components: {
-      'base-button': BaseButton
-    },
     template: //html
       `
     <base-button>
@@ -25,9 +22,6 @@ storiesOf('Button2', module)
     `
   }))
   .add('radius = 2', () => ({
-    components: {
-      'base-button': BaseButton
-    },
     template: //html
       `
     <base-button :radius="2">
@@ -36,9 +30,6 @@ storiesOf('Button2', module)
     `
   }))
   .add('radius = 3', () => ({
-    components: {
-      'base-button': BaseButton
-    },
     template: //html
       `
     <base-button :radius="3">
@@ -47,9 +38,6 @@ storiesOf('Button2', module)
     `
   }))
   .add('색 비교', () => ({
-    components: {
-      'base-button': BaseButton
-    },
     template: //html
       `
     <div>
@@ -89,9 +77,9 @@ storiesOf('Button2', module)
     `
   }))
   .add('other size with width,height attr', () => ({
-    components: {
-      'base-button': BaseButton
-    },
+    // components: {
+    //   'base-button': BaseButton
+    // },
     template: //html
       `
     <base-button style="width:150px">
@@ -99,8 +87,6 @@ storiesOf('Button2', module)
     </base-button>
     `
   }))
-
-import TheSelect from '../src/components/Select/TheSelect'
 
 storiesOf('TheSelect', module)
   .add('default', () => ({
@@ -110,11 +96,13 @@ storiesOf('TheSelect', module)
         data: ['hi', 'hello', 'hi', 'bye']
       }
     },
-    components: {
-      'the-select':TheSelect
-    },
     template: //html
-    `
-    <the-select></the-select>
+      `
+    <div>
+      <base-select></base-select>
+      <base-select color="pupple"></base-select>
+      <base-select color="ocean"></base-select>
+      <base-select :round="true"></base-select>
+    </div>
     `
   }))
