@@ -69,6 +69,8 @@ $button-back__pupple: $pupple-lighten1;
 $button-line__pupple: $pupple;
 $button-font__pupple: $pupple;
 
+
+
 @mixin config-color($font, $back, $line) {
   color: $font;
   background: $back;
@@ -104,6 +106,8 @@ button {
   border-radius: 40px;
   font-weight: 450;
   // transition: 0.1s;
+  font-family: NanumGothic;
+
   @include config-color(
     $button-font__blue,
     $button-back__blue,
