@@ -2,12 +2,10 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import componentConfig from './components.config'
 
 Vue.config.productionTip = false
 
-import TheButton from './components/Button/BaseButton'
-
-Vue.component('the-button',TheButton)
 
 new Vue({
   router,
