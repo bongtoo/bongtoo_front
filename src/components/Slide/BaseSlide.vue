@@ -1,5 +1,5 @@
 <template>
-  <vue-glide v-bind="optionObject" class="Slide">
+  <vue-glide v-bind="option" class="Slide">
     <vue-glide-slide v-for="(item,index) in data.images" :key="index">
       <div class="SlideInfo">
         <div class="SlideInfo-Container">
@@ -27,7 +27,7 @@ import right_arrow from "@/assets/icon/right_arrow.vue";
 
 export default {
   props: {
-    optionObject: {
+    option: {
       default: null
     },
     data: {

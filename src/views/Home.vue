@@ -4,7 +4,7 @@
     <div class="Home-moreReviewButton">
       <base-button>리뷰 더보기</base-button>
     </div>
-    <base-slide :optionObject="slideOption" :data="data"></base-slide>
+    <base-slide :option="slideOption" :data="data"></base-slide>
   </div>
 </template>
 

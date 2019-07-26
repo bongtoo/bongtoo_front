@@ -13,9 +13,14 @@ export default new Router({
       component: Home
     },
     {
+      path: '/category',
+      name: 'category',
+      component: () => import( /* webpackChunkName: "Category" */ './views/Category.vue')
+    },
+    {
       path: '/search',
-      name: 'search',
-      component:()=> import(/* webpackChunkName: "Search" */ './views/Search.vue')
+      name: 'category',
+      component: () => import( /* webpackChunkName: "Search" */ './views/Search')
     }
   ]
 })
