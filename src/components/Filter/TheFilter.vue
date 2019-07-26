@@ -1,10 +1,11 @@
 <template>
   <div class="Filter">
-    <header>
-      <div class="Filter-HeadLogo">
-        <filter-icon style="width:21px" />
-        <span style="color:#000;fontSize:20px;">필터</span>
-      </div>
+    <header class="Filter-Head">
+      <span class="Filter-Head-Logo">
+        <filter-icon class="Filter-Head-LogoImg" />
+        <span class="Filter-Head-LogoTxt">필터</span>
+      </span>
+      <recycle-icon class="Filter-Head-Cycle" />
     </header>
     <div class="FilterForm SelectBox">
       <div class="Info">
@@ -24,7 +25,7 @@
     </div>
     <div class="FilterForm Checkbox">
       <div class="Info">
-        <subject-icon  width="25px" color="ocean" />
+        <subject-icon width="25px" color="ocean" />
         <div>봉사대상</div>
       </div>
       <div class="ButtonGroup">
@@ -51,13 +52,15 @@
 import volunteerSubject from "@/assets/icon/volunteer_subject.vue";
 import volunteerActivity from "@/assets/icon/volunteer_activity.vue";
 import volunteerLocation from "@/assets/icon/volunteer_location.vue";
+import recycle from "@/assets/icon/recycle.vue";
 import filter from "@/assets/icon/filter.vue";
 export default {
   components: {
     "subject-icon": volunteerSubject,
     "activity-icon": volunteerActivity,
     "location-icon": volunteerLocation,
-    "filter-icon": filter
+    "filter-icon": filter,
+    "recycle-icon": recycle
   }
 };
 </script>
@@ -79,6 +82,23 @@ export default {
   border: 1px solid $gray-base;
   width: 320px;
   padding: 25px;
+  padding-top: 15px;
+  &-Head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    &-Logo {
+      display: inline-flex;
+      align-items: center;
+      &Img {
+        width: 30px;
+      }
+      &Txt {
+        padding-left: 11px;
+        font-size: 19px;
+      }
+    }
+  }
 }
 .FilterForm {
   padding-top: 44px;
