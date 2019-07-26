@@ -24,13 +24,18 @@ export default {
   font-weight: normal;
   font-style: normal;
 }
+html,
 body {
   margin: 0;
+  height: 100%;
+  width: 100%;
 }
 #app {
   font-family: NanumBarunpen, "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
   min-width: 800px;
 }
 </style>

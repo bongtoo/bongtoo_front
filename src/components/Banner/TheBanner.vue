@@ -5,8 +5,10 @@
       <pre class="TheBanner-Body" v-text="text"></pre>
       <base-button class="TheBanner-Postbuton">작성하기</base-button>
       <div class="TheBanner-Search">
-        <base-select></base-select>
-        <base-button style="borderTopLeftRadius:0px;borderBottomLeftRadius:0px" :radius="2"></base-button>
+        <base-select :multiple="true" :filterable="true" placeholder="봉사 검색하기"></base-select>
+        <base-button :radius="2">
+          <search-icon style="height:17px"></search-icon>
+        </base-button>
       </div>
     </div>
   </nav>
@@ -15,6 +17,7 @@
 <script>
 import backTop from "@/assets/icon/banner_background_top.svg";
 import backBottom from "@/assets/icon/banner_background_bottom.svg";
+import searchIcon from "@//assets/icon/search_blue";
 export default {
   data() {
     return {
@@ -23,15 +26,18 @@ export default {
       backTop: backTop,
       backBottom: backBottom
     };
+  },
+  components: {
+    "search-icon": searchIcon
   }
 };
 </script>
 
 <style lang='scss'>
 @import "@/assets/css/index.scss";
+
 .TheBanner {
   &-Container {
-    background-color: yellow;
     width: 800px;
     margin: auto;
   }
@@ -39,7 +45,8 @@ export default {
     color: $blue;
     font-size: 40px;
     font-weight: 400;
-    margin: 20px 0px;
+    margin: 0px 0px 20px 0px;
+    padding-top:20px;
   }
   &-Body {
     font-family: "Noto Serif KR", serif;
@@ -55,11 +62,18 @@ export default {
   }
   &-Search {
     display: flex;
-
     align-items: stretch;
+    margin-top:80px;
+    .BaseSelect {
+      width: 100%;
+    }
     .el-input__inner {
       border-top-right-radius: 0px;
       border-bottom-right-radius: 0px;
+    }
+    .BaseButton.button__radius2 {
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
     }
   }
 }
