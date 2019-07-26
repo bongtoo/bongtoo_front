@@ -1,6 +1,6 @@
 <template>
   <nav class="TheBanner">
-    <div class="TheBanner-Container">
+    <div class="TheBanner-Container contents">
       <h1 class="TheBanner-Head">보람을 나누는 공간, 봉투</h1>
       <pre class="TheBanner-Body" v-text="text"></pre>
       <base-button class="TheBanner-Postbuton">작성하기</base-button>
@@ -36,11 +36,11 @@ export default {
 <style lang='scss'>
 @import "@/assets/css/index.scss";
 
+
 .TheBanner {
-  &-Container {
-    width: 800px;
-    margin: auto;
-  }
+  // &-Container {
+
+  // }
   &-Head {
     color: $blue;
     font-size: 40px;
