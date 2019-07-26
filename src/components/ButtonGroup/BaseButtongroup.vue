@@ -1,8 +1,8 @@
 <template>
-  <div class="BaseButtongroup" :style="{width:getWidth,height:height}">
-    <div class="Item" v-for="i in item" :key="i">
-      <base-button class="Item-Button"></base-button>
-    </div>
+  <div class="BaseButtongroup">
+    <!-- <div class="Item" v-for="i in item" :key="i"> -->
+    <base-button v-for="i in item" :key="i" :style="buttonStyleObject" class="Item-Button"></base-button>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -14,12 +14,13 @@ export default {
       default: 8
     },
     width: {
-      default: "500px"
+      default: "auto"
     },
     height: {
       default: null
     }
   },
+  components: {},
   computed: {
     getWidth() {
       const width = this.width;
@@ -28,7 +29,6 @@ export default {
         .set("string", res => res)
         .set("number", res => res + "px");
       const result = computedWidth.get(widthType)(width);
-      console.log(result);
       return result;
     }
   }
@@ -38,14 +38,18 @@ export default {
 <style lang='scss' scoped>
 @import "@/assets/css/index.scss";
 .BaseButtongroup {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 50px;
+  width: 100%;
   background-color: red;
+  text-align: center;
   .Item {
-    margin: auto;
-    flex-basis: 25%;
-    text-align: center;
+    &-Button {
+      margin: auto;
+      height: 47px;
+      // width: 100%;
+    }
   }
 }
 </style>

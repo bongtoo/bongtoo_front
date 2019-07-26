@@ -36,6 +36,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
   height: 100%;
-  min-width: 800px;
+  // min-width: 800px;
 }
 </style>
