@@ -2,7 +2,7 @@
   <div class="Search">
     <div class="SearchForm Checkbox contents">
       <div class="SearchForm-Info">
-        <subject-icon />
+        <subject-icon width="50px" />
         <div>봉사대상</div>
       </div>
       <div class="ButtonGroup">
@@ -11,7 +11,7 @@
     </div>
     <div class="SearchForm Checkbox contents">
       <div class="SearchForm-Info">
-        <activity-icon />
+        <activity-icon width="50px" />
         <div>봉사활동</div>
       </div>
       <div class="ButtonGroup">
@@ -20,7 +20,7 @@
     </div>
     <div class="SearchForm SelectBox contents">
       <div class="SearchForm-Info">
-        <location-icon />
+        <location-icon width="50px" />
         <div>봉사지역</div>
       </div>
       <div class="SelectGroup">
@@ -88,7 +88,7 @@ export default {
 }
 .submitButton {
   text-align: right;
-  padding-top:120px;
+  padding-top: 120px;
   padding-right: 20%;
 }
 </style>

@@ -79,8 +79,8 @@ export default {
   }
 }
 .Filter {
-  border: 1px solid $gray-base;
-  width: 320px;
+  border: 1px solid $ocean;
+  // width: 100%;
   padding: 25px;
   padding-top: 15px;
   &-Head {
