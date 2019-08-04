@@ -5,8 +5,8 @@ $blue: hsl(203, 98%, 50%);
 $blue-darken1: hsl(203, 100%, 50%);
 // pupple
 $pupple-lighten1: #fcf6fd;
-$pupple: hsl(287, 54%, 49%);
-$pupple-darken1: hsl(287, 100%, 50%);
+$pupple: #a339c0;
+$pupple-darken1: #c700ff;
 // $pupple :
 // gray
 $gray-base: #c4c4c4;
@@ -15,5 +15,10 @@ $gray-base: #c4c4c4;
 $banner-font: $blue;
 
 $ocean-lighten1: #dad8ff;
-$ocean: hsl(244, 60%, 61%);
+$ocean: #675fd7;
 $ocean-darken1: hsl(244, 100%, 50%);
+
+.contents {
+  width: 800px;
+  margin: auto;
+}

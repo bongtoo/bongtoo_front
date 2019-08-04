@@ -1,5 +1,12 @@
 <template>
-  <el-select class="select" :class="styleClass" v-model="selectValue">
+  <el-select
+    class="BaseSelect"
+    :multiple="multiple"
+    :filterable="filterable"
+    :placeholder="placeholder"
+    :class="styleClass"
+    v-model="selectValue"
+  >
     <el-option
       class="option"
       :class="styleClass"
@@ -19,6 +26,17 @@ export default {
       default: "blue"
     },
     round: {
+      type: Boolean,
+      default: false
+    },
+    placeholder: {
+      type: String
+    },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    filterable: {
       type: Boolean,
       default: false
     }
@@ -75,14 +93,14 @@ export default {
   }
 }
 
-.select {
+.BaseSelect {
   @include config-select-color($blue-lighten1, $blue-darken1);
 }
-.select.ocean {
+.BaseSelect.ocean {
   @include config-select-color($ocean, $ocean-darken1);
 }
 
-.select.pupple {
+.BaseSelect.pupple {
   @include config-select-color($pupple, $pupple-darken1);
 }
 

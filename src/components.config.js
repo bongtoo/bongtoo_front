@@ -1,5 +1,7 @@
 import Vue from 'vue'
 
+
+// libaray
 import {
   Select,
   Option
@@ -9,10 +11,11 @@ import locale from 'element-ui/lib/locale'
 import 'element-ui/lib/theme-chalk/index.css';
 // configure language
 locale.use(lang)
-
 // import components
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
+
+import 'vue-glide-js/dist/vue-glide.css'
 
 // my global components
 import BaseButton from '@/components/Button/BaseButton.vue'

@@ -23,7 +23,7 @@ export default {
   name: "BaseButton",
   data() {
     return {
-      ColorList: ["", "white", "pupple", "ocean"],
+      ColorList: ["", "white", "pupple", "ocean", "black"],
       TypeList: ["", "line", "fill"],
       RadiusList: ["", "button__radius1", "button__radius2"]
     };
@@ -157,5 +157,9 @@ button.button__radius2 {
 }
 .oceanfill {
   @include config-color(#fff, $ocean, $ocean);
+}
+
+.blackline {
+  @include config-color__line(#000, #fff, #000, 30);
 }
 </style>
