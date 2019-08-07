@@ -38,4 +38,14 @@ body {
   height: 100%;
   // min-width: 800px;
 }
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 1s, transform 1s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+  transform: translateX(-30%);
+}
 </style>
