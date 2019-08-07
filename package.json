@@ -32,9 +32,6 @@
     "vue-template-compiler": "^2.6.10"
   },
   "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
   },
   "browserslist": [
     "> 1%",

@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import userPost from '@/components/User/UserPosts'
 export default {
   name: "User"
 };
