@@ -158,7 +158,9 @@ button.button__radius2 {
 .oceanfill {
   @include config-color(#fff, $ocean, $ocean);
 }
-
+.black {
+  @include config-color__line(#000, #fff, #000, 30);
+}
 .blackline {
   @include config-color__line(#000, #fff, #000, 30);
 }
