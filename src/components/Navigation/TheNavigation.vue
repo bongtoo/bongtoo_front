@@ -1,9 +1,11 @@
 <template>
   <nav class="TheNavigation" :class="navColor">
-    <span class="TheNavigation-Logo">
+    <router-link :to="{name:'home'}" tag="span" class="TheNavigation-Logo">
+      <!-- <span> -->
       <img :src="logoColor" alt />
       <span>봉투</span>
-    </span>
+      <!-- </span> -->
+    </router-link>
     <span class="TheNavigation-Buttons">
       <base-button :color="buttonColor">작성하기</base-button>
       <base-button :color="buttonColor">로그인</base-button>
@@ -23,7 +25,7 @@ export default {
     };
   },
   watch: {
-    $router: "fetchData"
+    $route: "fetchData"
   },
   methods: {
     fetchData() {
@@ -31,6 +33,9 @@ export default {
         console.log(this.$router.currentRoute.name);
         this.navColor = "home";
         this.buttonColor = "white";
+      } else {
+        this.navColor = null;
+        this.buttonColor = "black";
       }
     }
   },
