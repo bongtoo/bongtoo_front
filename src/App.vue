@@ -38,4 +38,15 @@ body {
   height: 100%;
   // min-width: 800px;
 }
+
+.slide-enter {
+  opacity: 0;
+}
+.slide-enter-active {
+  transition: 0.3s;
+}
+.slide-enter-to,
+.slide-leave {
+  opacity: 1;
+}
 </style>

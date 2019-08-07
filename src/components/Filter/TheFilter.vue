@@ -106,14 +106,17 @@ export default {
 .ButtonGroup {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 3% 2%;
+  grid-column-gap: 3%;
   width: 100%;
-  // background-color: red;
   text-align: center;
   &-Item {
     width: 100%;
     height: 40px;
     margin: auto;
+  }
+  .BaseButton {
+    padding: 0px;
+    margin: 2% 0%;
   }
 }
 .SelectGroup {

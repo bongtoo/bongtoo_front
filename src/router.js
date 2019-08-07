@@ -3,10 +3,10 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 import Home from './views/Home'
-import Search from './views/Search'
-
+import createUserPosts from './components/User/CreateUserPosts.js'
 
 export default new Router({
+  mode: 'history',
   routes: [{
       path: '/',
       name: 'home',
@@ -24,8 +24,22 @@ export default new Router({
     },
     {
       path: '/user',
-      name: 'user',
-      component: () => import( /* webpakcChunkName: "User" */ './views/User.vue')
+      component: () => import( /* webpakcChunkName: "User" */ './views/User.vue'),
+      children: [{
+        path: '/',
+        name: 'userPosts',
+        component: createUserPosts('UserPostList'),
+        props: {
+          'url': 'http://www.kbsecuritynews.com/imgdata/kbsecuritynews_com/201904/2019041740338784.jpg'
+        }
+      }, {
+        path: 'likes',
+        name: 'userLikes',
+        component: createUserPosts('UserLikeList'),
+        props: {
+          'url': 'https://pds.joins.com/news/component/newsis/201710/31/NISI20171031_0000061276_web.jpg'
+        }
+      }]
     }
   ]
 })
