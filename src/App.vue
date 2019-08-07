@@ -39,13 +39,14 @@ body {
   // min-width: 800px;
 }
 
-.page-enter-active,
-.page-leave-active {
-  transition: opacity 1s, transform 1s;
-}
-.page-enter,
-.page-leave-to {
+.slide-enter {
   opacity: 0;
-  transform: translateX(-30%);
+}
+.slide-enter-active {
+  transition: 0.3s;
+}
+.slide-enter-to,
+.slide-leave {
+  opacity: 1;
 }
 </style>

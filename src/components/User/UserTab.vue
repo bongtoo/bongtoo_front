@@ -1,7 +1,7 @@
 <template>
   <nav class="UserTabs">
-    <router-link :to="{name:'userPosts'}" active-class="active" tag="span">게시물</router-link>
-    <router-link :to="{name:'userLikes'}" active-class="active" tag="span">좋아요</router-link>
+    <router-link :to="{name:'userPosts'}" exact-active-class="active" tag="span">게시물</router-link>
+    <router-link :to="{name:'userLikes'}" exact-active-class="active" tag="span">좋아요</router-link>
   </nav>
 </template>
 
@@ -11,11 +11,6 @@ export default {
     activedItem: {
       type: Number,
       default: 1
-    }
-  },
-  methods: {
-    clickTab(index) {
-      this.$emit("update", index);
     }
   }
 };

@@ -2,8 +2,8 @@
   <div class="User">
     <user-header></user-header>
     <hr />
-    <user-tab :activedItem="selectedTab" @update="val => selectedTab = val"></user-tab>
-    <transition name="page" mode="out-in">
+    <user-tab :activedItem="selectedTab"></user-tab>
+    <transition name="slide" mode="out-in">
       <router-view />
     </transition>
   </div>
