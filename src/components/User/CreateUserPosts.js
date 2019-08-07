@@ -11,9 +11,6 @@ export default function createUserPosts(componentName) {
     components: {
       'user-posts': UserPosts
     },
-    mounted() {
-      console.log(componentName)
-    },
     render(h) {
       return h(UserPosts, {
         props: {

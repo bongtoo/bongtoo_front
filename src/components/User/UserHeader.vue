@@ -4,13 +4,13 @@
       <div class="UserHeader-Image"></div>
     </div>
     <div class="UserHeader-Info">
-      <div class="UserHeader-Name">User_0000</div>
-      <div class="UserHeader-Prefer">
+      <div class="UserHeader-InfoName">User_0000</div>
+      <div class="UserHeader-InfoItem">
         선호 활동
         <b>코딩봉사</b>
       </div>
-      <div>게시물 14</div>
-      <div>
+      <div class="UserHeader-InfoItem">게시물 14</div>
+      <div class="UserHeader-InfoButtons">
         <base-button type="line">작성하기</base-button>
         <base-button color="black" type="line">프로필 편집</base-button>
       </div>
@@ -28,7 +28,23 @@ export default {};
   display: flex;
   // background-color: yellow;
   padding-top: 60px;
-  padding-bottom: 54px;
+  padding-bottom: 40px;
+  &-Info {
+    font-size: 16px;
+    &Name {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    &Item {
+      margin: 10px 0px;
+    }
+    // &Buttons{
+    .BaseButton {
+      margin: 15px 15px 15px 0px;
+      width: 100px;
+    }
+    // }
+  }
   &-Image {
     &Box {
       width: 30%;
