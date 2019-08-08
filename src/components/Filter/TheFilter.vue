@@ -29,7 +29,20 @@
         <div>봉사대상</div>
       </div>
       <div class="ButtonGroup">
-        <base-button color="ocean" v-for="i in 8" :key="i" type="line" class="ButtonGroup-Item"></base-button>
+        <!-- <div class="checkButton" v-for="(item,index) in subjectList" :key="'subject'+index">
+          <label :for="item.name" v-text="item.name"></label>
+          <input type="checkbox" :name="item.name" :value="item.name" v-model="selectedSubject" />
+        </div>-->
+        <base-button
+          inputType="but"
+          color="ocean"
+          v-for="(item,index) in subjectList"
+          :key="'subject'+index"
+          type="line"
+          class="ButtonGroup-Item"
+          :name="item.name"
+          :value="item.name"
+        ></base-button>
       </div>
     </div>
     <div class="FilterForm Checkbox">
@@ -95,8 +108,9 @@ export default {
 .Filter {
   border: 1px solid $ocean;
   // width: 100%;
-  padding: 25px;
+  padding: 24px;
   padding-top: 15px;
+  padding-right:31px;
   &-Head {
     display: flex;
     align-items: center;
@@ -119,8 +133,8 @@ export default {
 }
 .ButtonGroup {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 3%;
+  grid-template-columns: repeat(3, 76px);
+  grid-column-gap: 3%; // ipad
   width: 100%;
   text-align: center;
   &-Item {
@@ -129,8 +143,8 @@ export default {
     margin: auto;
   }
   .BaseButton {
-    padding: 0px;
-    margin: 2% 0%;
+    padding:0px;
+    margin: 2% 0%; // ipad
   }
 }
 .SelectGroup {

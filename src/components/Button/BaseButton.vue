@@ -1,7 +1,11 @@
 <template>
-  <button class="BaseButton" :class="styleClass">
+  <button v-if="inputType==='button'" class="ButtonContainer BaseButton" :class="styleClass">
     <slot>버튼</slot>
   </button>
+  <label class="ButtonContainer" v-else>
+    <input type="checkbox" :name="value" :value="value" />
+    <span class="BaseButton" :class="styleClass" :for="value" v-text="value"></span>
+  </label>
 </template>
 
 <script>
@@ -18,6 +22,14 @@ export default {
     color: {
       type: String,
       default: "blue"
+    },
+    inputType: {
+      type: String,
+      default: "button"
+    },
+    value: {
+      type: String,
+      default: "체크"
     }
   },
   name: "BaseButton",
@@ -90,11 +102,30 @@ $button-font__pupple: $pupple;
     background: lighten($color: $line, $amount: $amont - 5);
     border-color: darken($color: $line, $amount: 10);
   }
+  @at-root .ButtonContainer > input:checked + span {
+    background-color: #b9b5ff;
+    // #A239C0
+  }
 }
-
-button {
+.ButtonContainer {
   width: 120px;
+  // padding: 9px;
+  font-size: 14px;
+}
+label {
+  // width: 120px;
+  input {
+    display: block;
+    position: absolute;
+    visibility: hidden;
+  }
+  span {
+    display: block;
+  }
+}
+.BaseButton {
   padding: 9px;
+
   // line
   outline: none;
   box-sizing: border-box;
@@ -103,17 +134,17 @@ button {
   font-weight: 450;
   // transition: 0.1s;
   font-family: NanumGothic;
-
   @include config-color(
     $button-font__blue,
     $button-back__blue,
     $button-line__blue
   );
 }
-button.button__radius1 {
+
+.BaseButton.button__radius1 {
   border-radius: 18px;
 }
-button.button__radius2 {
+.BaseButton.button__radius2 {
   border-radius: 5px;
 }
 .line {
