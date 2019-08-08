@@ -54,7 +54,21 @@ import volunteerActivity from "@/assets/icon/volunteer_activity.vue";
 import volunteerLocation from "@/assets/icon/volunteer_location.vue";
 import recycle from "@/assets/icon/recycle.vue";
 import filter from "@/assets/icon/filter.vue";
+
 export default {
+  data() {
+    return {
+      selectedSubject: [],
+      subjectList: [
+        { name: "노인" },
+        { name: "장애인" },
+        { name: "아동" },
+        { name: "청소년" },
+        { name: "취약계층" },
+        { name: "기타" }
+      ]
+    };
+  },
   components: {
     "subject-icon": volunteerSubject,
     "activity-icon": volunteerActivity,
