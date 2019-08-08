@@ -41,7 +41,10 @@
           type="line"
           class="ButtonGroup-Item"
           :name="item.name"
-          :value="item.name"
+          :checked="selectedSubject.has(item.id)"
+          :value="item"
+          :checkedData="selectedSubject"
+          @update:checked="chekdUpdate"
         ></base-button>
       </div>
     </div>
@@ -69,25 +72,37 @@ import recycle from "@/assets/icon/recycle.vue";
 import filter from "@/assets/icon/filter.vue";
 
 export default {
-  data() {
-    return {
-      selectedSubject: [],
-      subjectList: [
-        { name: "노인" },
-        { name: "장애인" },
-        { name: "아동" },
-        { name: "청소년" },
-        { name: "취약계층" },
-        { name: "기타" }
-      ]
-    };
-  },
   components: {
     "subject-icon": volunteerSubject,
     "activity-icon": volunteerActivity,
     "location-icon": volunteerLocation,
     "filter-icon": filter,
     "recycle-icon": recycle
+  },
+  data() {
+    return {
+      selectedSubject: new Set(),
+      subjectList: [
+        { id: 1, name: "노인" },
+        { id: 2, name: "장애인" },
+        { id: 3, name: "아동" },
+        { id: 4, name: "청소년" },
+        { id: 5, name: "취약계층" },
+        { id: 6, name: "기타" }
+      ]
+    };
+  },
+  methods: {
+    chekdUpdate(item) {
+      const list = this.selectedSubject,
+        value = item.value,
+        isCheck = item.checked,
+        key = value.name,
+        val = value.id;
+      if (list.has(val)) list.delete(val);
+      else list.add(val);
+      console.log(list);
+    }
   }
 };
 </script>
@@ -110,7 +125,7 @@ export default {
   // width: 100%;
   padding: 24px;
   padding-top: 15px;
-  padding-right:31px;
+  padding-right: 31px;
   &-Head {
     display: flex;
     align-items: center;
@@ -143,7 +158,7 @@ export default {
     margin: auto;
   }
   .BaseButton {
-    padding:0px;
+    padding: 0px;
     margin: 2% 0%; // ipad
   }
 }

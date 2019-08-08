@@ -3,8 +3,13 @@
     <slot>버튼</slot>
   </button>
   <label class="ButtonContainer" v-else>
-    <input type="checkbox" :name="value" :value="value" />
-    <span class="BaseButton" :class="styleClass" :for="value" v-text="value"></span>
+    <input
+      type="checkbox"
+      :value="value.id"
+      :checked="checked"
+      @change="$emit('update:checked',{value: value,checked:$event.target.checked})"
+    />
+    <span class="BaseButton" :class="styleClass" :for="value" v-text="name"></span>
   </label>
 </template>
 
@@ -27,14 +32,14 @@ export default {
       type: String,
       default: "button"
     },
-    value: {
-      type: String,
-      default: "체크"
-    }
+    name: {},
+    value: {},
+    checked: {}
   },
   name: "BaseButton",
   data() {
     return {
+      checkState: false,
       ColorList: ["", "white", "pupple", "ocean", "black"],
       TypeList: ["", "line", "fill"],
       RadiusList: ["", "button__radius1", "button__radius2"]
