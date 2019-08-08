@@ -29,10 +29,6 @@
         <div>봉사대상</div>
       </div>
       <div class="ButtonGroup">
-        <!-- <div class="checkButton" v-for="(item,index) in subjectList" :key="'subject'+index">
-          <label :for="item.name" v-text="item.name"></label>
-          <input type="checkbox" :name="item.name" :value="item.name" v-model="selectedSubject" />
-        </div>-->
         <base-button
           inputType="but"
           color="ocean"
@@ -44,7 +40,7 @@
           :checked="selectedSubject.has(item.id)"
           :value="item"
           :checkedData="selectedSubject"
-          @update:checked="chekdUpdate"
+          @update:checked="checkSubject"
         ></base-button>
       </div>
     </div>
@@ -54,12 +50,24 @@
         <div>봉사활동</div>
       </div>
       <div class="ButtonGroup">
-        <base-button color="ocean" v-for="j in 8" :key="j" type="line" class="ButtonGroup-Item"></base-button>
+        <base-button
+          inputType="but"
+          color="ocean"
+          v-for="(item,index) in activityList"
+          :key="'subject'+index"
+          type="line"
+          class="ButtonGroup-Item"
+          :name="item.name"
+          :checked="selectedActivity.has(item.id)"
+          :value="item"
+          :checkedData="selectedActivity"
+          @update:checked="checkedActivity"
+        ></base-button>
       </div>
     </div>
 
     <div class="FilterForm submitButton">
-      <base-button color="ocean">다음</base-button>
+      <base-button color="ocean" type="fill">다음</base-button>
     </div>
   </div>
 </template>
@@ -89,19 +97,33 @@ export default {
         { id: 4, name: "청소년" },
         { id: 5, name: "취약계층" },
         { id: 6, name: "기타" }
+      ],
+      selectedActivity: new Set(),
+      activityList: [
+        { id: 1, name: "사무" },
+        { id: 2, name: "학습" },
+        { id: 3, name: "식당" },
+        { id: 4, name: "외부활동" },
+        { id: 5, name: "환경미화" },
+        { id: 6, name: "치료" }
       ]
     };
   },
   methods: {
-    chekdUpdate(item) {
-      const list = this.selectedSubject,
+    checkedActivity(item) {
+      this.chekdUpdate(item, this.selectedActivity);
+    },
+    checkSubject(item) {
+      this.chekdUpdate(item, this.selectedSubject);
+    },
+    chekdUpdate(item, selecedList) {
+      const list = selecedList,
         value = item.value,
         isCheck = item.checked,
         key = value.name,
         val = value.id;
       if (list.has(val)) list.delete(val);
       else list.add(val);
-      console.log(list);
     }
   }
 };
