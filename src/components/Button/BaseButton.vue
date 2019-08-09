@@ -116,6 +116,7 @@ $button-font__pupple: $pupple;
   width: 120px;
   // padding: 9px;
   font-size: 14px;
+  cursor: pointer;
 }
 label {
   // width: 120px;

@@ -3,12 +3,23 @@
     <div class="TheBanner-Container contents">
       <h1 class="TheBanner-Head">보람을 나누는 공간, 봉투</h1>
       <pre class="TheBanner-Body" v-text="text"></pre>
-      <base-button class="TheBanner-Postbuton">작성하기</base-button>
+      <router-link :to="{name:'post'}" tag="span">
+        <base-button class="TheBanner-Postbuton">작성하기</base-button>
+      </router-link>
       <div class="TheBanner-Search">
-        <base-select :multiple="true" :filterable="true" placeholder="봉사 검색하기"></base-select>
-        <base-button :radius="2">
-          <search-icon style="height:17px"></search-icon>
-        </base-button>
+        <base-select
+          :optionList="activityList"
+          :multiple="true"
+          :filterable="true"
+          placeholder="봉사활동 검색하기"
+          :checkedData="checkedActivity"
+          @update:checked="v => checkedActivity = v"
+        ></base-select>
+        <span @click="search">
+          <base-button :radius="2">
+            <search-icon style="height:17px"></search-icon>
+          </base-button>
+        </span>
       </div>
     </div>
   </nav>
@@ -17,25 +28,39 @@
 <script>
 import backTop from "@/assets/icon/banner_background_top.svg";
 import backBottom from "@/assets/icon/banner_background_bottom.svg";
-import searchIcon from "@//assets/icon/search_blue";
+import searchIcon from "@/assets/icon/search_blue";
+import activityList from "@/utility/activity.data";
 export default {
+  components: {
+    "search-icon": searchIcon
+  },
   data() {
     return {
+      checkedActivity: "",
+      activityList,
       text:
         "당신의 봉사활동, 간직하고 싶나요?\n보람을 봉투에 담아 사람들과 나눠보세요.\n서로의 따뜻한 마음으로.",
       backTop: backTop,
       backBottom: backBottom
     };
   },
-  components: {
-    "search-icon": searchIcon
+  methods: {
+    search() {
+      // const params = this.activityList;
+      console.log(this.$router);
+      this.$router.push({
+        name: "search",
+        query: {
+          activity: 1
+        }
+      });
+    }
   }
 };
 </script>
 
 <style lang='scss'>
 @import "@/assets/css/index.scss";
-
 
 .TheBanner {
   // &-Container {
@@ -46,7 +71,7 @@ export default {
     font-size: 40px;
     font-weight: 400;
     margin: 0px 0px 20px 0px;
-    padding-top:20px;
+    padding-top: 20px;
   }
   &-Body {
     font-family: "Noto Serif KR", serif;
@@ -63,7 +88,7 @@ export default {
   &-Search {
     display: flex;
     align-items: stretch;
-    margin-top:80px;
+    margin-top: 80px;
     .BaseSelect {
       width: 100%;
     }

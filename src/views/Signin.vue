@@ -37,10 +37,15 @@ export default {
     height: 270px;
   }
   &-Input {
+    all: unset;
+    box-sizing: border-box;
+    margin: 15px 0px;
+    padding: 3px 15px;
+    width: 100%;
+    height: 40px;
+    outline: none;
     border: 1px solid #999;
     border-radius: 32px;
-    height: 40px;
-    margin: 15px 0px;
   }
   .BaseButton {
     margin-top: 25px;

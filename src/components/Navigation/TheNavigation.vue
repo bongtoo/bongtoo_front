@@ -1,21 +1,19 @@
 <template>
   <nav class="TheNavigation" :class="navColor">
     <router-link :to="{name:'home'}" tag="span" class="TheNavigation-Logo">
-      <!-- <span> -->
       <img :src="logoColor" alt />
       <span>봉투</span>
-      <!-- </span> -->
     </router-link>
     <span class="TheNavigation-Buttons">
-      <base-button :color="buttonColor">
-        <router-link :to="{name:'post'}" tag="span">작성하기</router-link>
-      </base-button>
-      <base-button :color="buttonColor">
-        <router-link :to="{name:'signin'}" tag="span">로그인</router-link>
-      </base-button>
-      <base-button :color="buttonColor">
-        회원가입
-      </base-button>
+      <router-link :to="{name:'post'}">
+        <base-button :color="buttonColor">작성하기</base-button>
+      </router-link>
+      <router-link :to="{name:'signin'}" tag="span">
+        <base-button :color="buttonColor">로그인</base-button>
+      </router-link>
+      <router-link :to="{name:'signup'}" tag="span">
+        <base-button :color="buttonColor">회원가입</base-button>
+      </router-link>
     </span>
   </nav>
 </template>
@@ -62,6 +60,7 @@ export default {
   &-Logo {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
   .BaseButton {
     font-size: 14px;

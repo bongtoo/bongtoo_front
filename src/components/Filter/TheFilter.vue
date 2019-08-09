@@ -67,7 +67,7 @@
     </div>
 
     <div class="FilterForm submitButton">
-      <base-button color="ocean" type="fill">다음</base-button>
+      <base-button color="ocean" type="fill">검색</base-button>
     </div>
   </div>
 </template>
