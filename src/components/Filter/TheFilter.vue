@@ -18,8 +18,14 @@
           color="ocean"
           type="line"
           :round="true"
-          v-for="s in 3"
-          :key="s"
+          @updated:checkd="v => selectedCity =v"
+        ></base-select>
+        <base-select
+          class="SelectItem"
+          color="ocean"
+          type="line"
+          :round="true"
+          @updated:checkd="v => selectedTown =v"
         ></base-select>
       </div>
     </div>
@@ -67,7 +73,9 @@
     </div>
 
     <div class="FilterForm submitButton">
-      <base-button color="ocean" type="fill">검색</base-button>
+      <span @click="filterCategory">
+        <base-button color="ocean" type="fill">검색</base-button>
+      </span>
     </div>
   </div>
 </template>
@@ -90,6 +98,8 @@ export default {
   data() {
     return {
       selectedSubject: new Set(),
+      selectedCity: "",
+      selectedTown: "",
       subjectList: [
         { id: 1, name: "노인" },
         { id: 2, name: "장애인" },
@@ -105,7 +115,8 @@ export default {
         { id: 3, name: "식당" },
         { id: 4, name: "외부활동" },
         { id: 5, name: "환경미화" },
-        { id: 6, name: "치료" }
+        { id: 6, name: "치료" },
+        { id: 7, name: "기타" }
       ]
     };
   },
@@ -124,6 +135,16 @@ export default {
         val = value.id;
       if (list.has(val)) list.delete(val);
       else list.add(val);
+    },
+    filterCategory() {
+      const hash =
+        [...this.selectedSubject].reduce((prv, val) => {
+          return prv + `subjects=${val}&`;
+        }, "#") +
+        [...this.selectedActivity].reduce((prv, val) => {
+          return prv + `activites=${val}&`;
+        }, "");
+      this.$router.replace({ hash: hash });
     }
   }
 };

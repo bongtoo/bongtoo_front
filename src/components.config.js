@@ -5,7 +5,8 @@ import Vue from 'vue'
 import {
   Select,
   Option,
-  Upload
+  Upload,
+  InfiniteScroll
 } from 'element-ui';
 import lang from 'element-ui/lib/locale/lang/ko'
 import locale from 'element-ui/lib/locale'
@@ -13,6 +14,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 // configure language
 locale.use(lang)
 // import components
+Vue.use(InfiniteScroll)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
 Vue.component(Upload.name, Upload)

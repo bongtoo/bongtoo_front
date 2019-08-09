@@ -12,20 +12,39 @@
         </div>
       </div>
       <div class="Board-Button">
-        <a :href="`https://www.vms.or.kr/partspace/recruitView.do?seq=${item.value}`" target="blank">
+        <a
+          :href="`https://www.vms.or.kr/partspace/recruitView.do?seq=${item.value}`"
+          target="blank"
+        >
           <base-button type="line" color="ocean">검색하기</base-button>
         </a>
       </div>
+    </li>
+    <li class="Board-Item" style="display:block;textAlign:center;">
+      <span @click="$emit('addList')">
+        <base-button color="ocean" type="line">
+          <img :src="plusIcon" width="25px" alt="ADD" />
+        </base-button>
+      </span>
     </li>
   </ul>
 </template>
 
 <script>
+const plus_icon = require("@/assets/icon/plus.png");
 export default {
   props: ["data"],
+  data() {
+    return {
+      plusIcon: plus_icon
+    };
+  },
   computed: {
     presentDate() {
       return new Date();
+    },
+    disabled() {
+      return this.loading;
     }
   },
   methods: {

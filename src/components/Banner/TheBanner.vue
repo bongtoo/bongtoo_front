@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      checkedActivity: "",
+      checkedActivity: [],
       activityList,
       text:
         "당신의 봉사활동, 간직하고 싶나요?\n보람을 봉투에 담아 사람들과 나눠보세요.\n서로의 따뜻한 마음으로.",
@@ -44,15 +44,18 @@ export default {
       backBottom: backBottom
     };
   },
+  computed: {
+    getHash() {
+      return this.checkedActivity.reduce((prv, val) => {
+        return prv + `activites=${val}&`;
+      }, "#");
+    }
+  },
   methods: {
     search() {
-      // const params = this.activityList;
-      console.log(this.$router);
       this.$router.push({
         name: "search",
-        query: {
-          activity: 1
-        }
+        hash: this.getHash
       });
     }
   }

@@ -33,6 +33,7 @@ export default new Router({
     {
       path: '/search',
       name: 'search',
+      mode:'hash',
       component: () => import( /* webpackChunkName: "Search" */ './views/Search')
     },
     {
