@@ -2,22 +2,26 @@
   <div class="Home">
     <the-banner></the-banner>
     <div class="Home-moreReviewButton">
-      <base-button>리뷰 더보기</base-button>
+      <!-- <base-button>리뷰 더보기</base-button> -->
     </div>
-    <base-slide :option="slideOption" :data="data"></base-slide>
+    <base-slide v-if="reviewList.length" :option="slideOption" :data="reviewList"></base-slide>
   </div>
 </template>
 
 <script>
 import the_banner from "../components/Banner/TheBanner";
 import BaseSlide from "../components/Slide/BaseSlide";
-import testSet from "../testset/home";
+import axios from "@/utility/axios";
 
 export default {
   name: "home",
+  components: {
+    "the-banner": the_banner,
+    [BaseSlide.name]: BaseSlide
+  },
   data() {
     return {
-      data: testSet,
+      reviewList: [],
       slideOption: {
         perView: 4,
         gap: 0,
@@ -32,9 +36,18 @@ export default {
       optionList: ["hi", "hello", "bye", "goodbye"]
     };
   },
-  components: {
-    "the-banner": the_banner,
-    [BaseSlide.name]: BaseSlide
+  methods: {
+    addReviewList() {
+      axios
+        .get(`/api/search/reviews/`)
+        .then(res => {
+          this.reviewList = this.reviewList.concat(res.data.results);
+        })
+        .catch(err => console.log(err));
+    }
+  },
+  created() {
+    this.addReviewList();
   }
 };
 </script>

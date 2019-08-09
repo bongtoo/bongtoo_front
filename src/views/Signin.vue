@@ -2,15 +2,17 @@
   <div class="Signin">
     <img class="Signin-Logo" :src="logo" alt="logo" />
     <input class="Signin-Input" type="text" v-model="id" />
-    <input class="Signin-Input" type="text" v-model="pw" />
-    <base-button color="ocean" type="fill">로그인</base-button>
+    <input class="Signin-Input" type="password" v-model="pw" />
+    <span @click="signin">
+      <base-button color="ocean" type="fill">로그인</base-button>
+    </span>
     <router-link :to="{name:'category'}">회원가입</router-link>
   </div>
 </template>
 
 <script>
 const logo_color = require("@/assets/icon/logo_color.svg");
-
+import axios from "@/utility/axios";
 export default {
   data() {
     return {
@@ -19,10 +21,21 @@ export default {
       pw: ""
     };
   },
-  computed: {
-    // logo() {
-    //   return () => import("@/assets/icon/logo_color.svg");
-    // }
+  methods: {
+    signin() {
+      axios
+        .post("/rest-auth/login/", {
+          username: this.id,
+          email: "",
+          password: this.pw
+        })
+        .then(res => {
+          this.$store.commit("setJwt", res.data.token);
+        })
+        .then(() => {
+          this.$router.go(-1);
+        });
+    }
   }
 };
 </script>

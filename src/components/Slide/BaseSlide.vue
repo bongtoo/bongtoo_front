@@ -10,7 +10,7 @@
       <div
         class="SlideBack"
         v-if="item.get_thumnail"
-        :style="{backgroundImage:`url(http://127.0.0.1:8002${item.get_thumnail.image})`}"
+        :style="{backgroundImage:`url(http://127.0.0.1:8000${item.get_thumnail.image})`}"
       ></div>
       <div class="SlideBack" v-else></div>
     </vue-glide-slide>

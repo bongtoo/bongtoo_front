@@ -5,13 +5,16 @@
       <span>봉투</span>
     </router-link>
     <span class="TheNavigation-Buttons">
-      <router-link :to="{name:'post'}">
+      <router-link v-if="!getAuth" :to="{name:'userPosts'}">
+        <base-button :color="buttonColor">{{getUsername}}</base-button>
+      </router-link>
+      <router-link v-if="!getAuth" :to="{name:'post'}">
         <base-button :color="buttonColor">작성하기</base-button>
       </router-link>
-      <router-link :to="{name:'signin'}" tag="span">
+      <router-link v-if="getAuth" :to="{name:'signin'}" tag="span">
         <base-button :color="buttonColor">로그인</base-button>
       </router-link>
-      <router-link :to="{name:'signup'}" tag="span">
+      <router-link v-if="getAuth" :to="{name:'signup'}" tag="span">
         <base-button :color="buttonColor">회원가입</base-button>
       </router-link>
     </span>
@@ -20,6 +23,7 @@
 
 <script>
 const logo_color = require("@/assets/icon/logo_color.svg");
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -27,6 +31,9 @@ export default {
       buttonColor: "black",
       logoColor: logo_color
     };
+  },
+  computed: {
+    ...mapGetters(["getAuth", "getUsername"])
   },
   watch: {
     $route: "fetchData"
@@ -51,6 +58,10 @@ export default {
 
 <style lang='scss' scoped>
 @import "@/assets/css/index.scss";
+.username {
+  font-size: 120%;
+  margin-right: 10px;
+}
 .TheNavigation {
   background: none;
   display: flex;

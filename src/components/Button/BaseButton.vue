@@ -34,7 +34,9 @@ export default {
     },
     name: {},
     value: {},
-    checked: {}
+    checked: {
+      default: false
+    }
   },
   name: "BaseButton",
   data() {

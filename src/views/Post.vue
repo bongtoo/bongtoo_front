@@ -4,7 +4,15 @@
     <section class="Post-Form contents">
       <div class="Post-Form-Container">
         <div class="Post-Form-Image">
-          <el-upload class="el-upload" action="#" list-type="picture-card" :auto-upload="false">
+          <el-upload
+            class="el-upload"
+            :on-success="onSuccess"
+            :file-list="fileList"
+            :on-change="handleChange"
+            action="#"
+            list-type="picture-card"
+            :auto-upload="false"
+          >
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
               <img class="el-upload-list__item-thumbnail" :src="file.url" alt />
@@ -49,13 +57,16 @@
       </div>
       <div class="Post-Form-Button">
         <!-- <base-button color="gray">임시저장</base-button> -->
-        <base-button color="pupple">등록</base-button>
+        <span @click="submit">
+          <base-button color="pupple">등록</base-button>
+        </span>
       </div>
     </section>
   </section>
 </template>
 
 <script>
+import axios from "@/utility/axios";
 export default {
   data() {
     return {
@@ -63,10 +74,17 @@ export default {
       postBody: "",
       dialogImageUrl: "",
       dialogVisible: false,
-      disabled: false
+      disabled: false,
+      fileList: []
     };
   },
   methods: {
+    handleChange(file, fileList) {
+      this.fileList = fileList.slice(-3);
+    },
+    onSuccess(file) {
+      console.log(file);
+    },
     handleRemove(file) {
       console.log(file);
     },
@@ -76,6 +94,15 @@ export default {
     },
     handleDownload(file) {
       console.log(file);
+    },
+    submit() {
+      axios
+        .post("/reviews/", {
+          titile: this.postHead,
+          body: this.postBody
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
     }
   }
 };
@@ -102,25 +129,26 @@ export default {
       border-radius: 20px;
     }
     &-Input {
+      padding: 15px;
       border: 1px solid #dbdbdb;
       &::placeholder {
         color: #dbdbdb;
       }
     }
     &-Head {
-      height: 60px;
+      height: 47px;
       font-size: 32px;
     }
     &-Body {
       // width: 100%;
       // display: block;
-      height: 400px;
-      margin:35px 0px;
+      height: 270px;
+      margin: 35px 0px;
     }
-    &-Button{
+    &-Button {
       text-align: right;
-      .BaseButton{
-        margin-left:19px;
+      .BaseButton {
+        margin-left: 19px;
       }
     }
   }

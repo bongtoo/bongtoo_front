@@ -1,11 +1,13 @@
 <template>
-  <div class="Filter">
+  <div class="Filter" v-if="update">
     <header class="Filter-Head">
       <span class="Filter-Head-Logo">
         <filter-icon class="Filter-Head-LogoImg" />
         <span class="Filter-Head-LogoTxt">필터</span>
       </span>
-      <recycle-icon class="Filter-Head-Cycle" />
+      <span @click="initCategory" class="Filter-Head-Cycle">
+        <recycle-icon />
+      </span>
     </header>
     <div class="FilterForm SelectBox">
       <div class="Info">
@@ -18,6 +20,7 @@
           color="ocean"
           type="line"
           :round="true"
+          ref="select"
           @updated:checkd="v => selectedCity =v"
         ></base-select>
         <base-select
@@ -25,6 +28,7 @@
           color="ocean"
           type="line"
           :round="true"
+          ref=":select"
           @updated:checkd="v => selectedTown =v"
         ></base-select>
       </div>
@@ -86,6 +90,7 @@ import volunteerActivity from "@/assets/icon/volunteer_activity.vue";
 import volunteerLocation from "@/assets/icon/volunteer_location.vue";
 import recycle from "@/assets/icon/recycle.vue";
 import filter from "@/assets/icon/filter.vue";
+import { setTimeout } from "timers";
 
 export default {
   components: {
@@ -97,6 +102,7 @@ export default {
   },
   data() {
     return {
+      update: true,
       selectedSubject: new Set(),
       selectedCity: "",
       selectedTown: "",
@@ -121,6 +127,15 @@ export default {
     };
   },
   methods: {
+    initCategory() {
+      this.update = false;
+      this.$nextTick(() => {
+        this.update = true;
+        this.$router.replace({hash:'#'})
+        this.selectedSubject.clear();
+        this.selectedActivity.clear();
+      });
+    },
     checkedActivity(item) {
       this.chekdUpdate(item, this.selectedActivity);
     },
@@ -183,6 +198,9 @@ export default {
         padding-left: 11px;
         font-size: 19px;
       }
+    }
+    &-Cycle {
+      cursor: pointer;
     }
   }
 }
