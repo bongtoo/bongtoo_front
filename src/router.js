@@ -18,6 +18,11 @@ export default new Router({
       component: () => import( /* webpackChunkName: "Category" */ './views/Category.vue')
     },
     {
+      path: '/post',
+      name: 'post',
+      component: () => import( /* webpackChunkName: "Post" */ './views/Post')
+    },
+    {
       path: '/search',
       name: 'search',
       component: () => import( /* webpackChunkName: "Search" */ './views/Search')
