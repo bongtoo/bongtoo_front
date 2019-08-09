@@ -7,9 +7,15 @@
       <!-- </span> -->
     </router-link>
     <span class="TheNavigation-Buttons">
-      <base-button :color="buttonColor">작성하기</base-button>
-      <base-button :color="buttonColor">로그인</base-button>
-      <base-button :color="buttonColor">회원가입</base-button>
+      <base-button :color="buttonColor">
+        <router-link :to="{name:'post'}" tag="span">작성하기</router-link>
+      </base-button>
+      <base-button :color="buttonColor">
+        <router-link :to="{name:'signin'}" tag="span">로그인</router-link>
+      </base-button>
+      <base-button :color="buttonColor">
+        회원가입
+      </base-button>
     </span>
   </nav>
 </template>

@@ -11,6 +11,10 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    }, {
+      path: '/signin',
+      name: 'signin',
+      component: () => import( /* webpackChunkName: "Signin" */ './views/Signin.vue')
     },
     {
       path: '/category',
