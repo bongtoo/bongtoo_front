@@ -5,8 +5,8 @@
       <div class="Post-Form-Container">
         <div class="Post-Form-Image">
           <el-upload
-            class="el-upload"
             :on-success="onSuccess"
+            class="el-upload"
             :file-list="fileList"
             :on-change="handleChange"
             action="#"
@@ -67,6 +67,8 @@
 
 <script>
 import axios from "@/utility/axios";
+import { mapGetters } from "vuex";
+import { async } from "q";
 export default {
   data() {
     return {
@@ -77,6 +79,9 @@ export default {
       disabled: false,
       fileList: []
     };
+  },
+  computed: {
+    ...mapGetters(["getJwt"])
   },
   methods: {
     handleChange(file, fileList) {
@@ -96,13 +101,22 @@ export default {
       console.log(file);
     },
     submit() {
-      axios
-        .post("/reviews/", {
-          titile: this.postHead,
-          body: this.postBody
+      const jwt = this.getJwt;
+      if (this.jwt || jwt !== "null") {
+        axios({
+          method: "post",
+          url: "/reviews/",
+          headers: {
+            Authorization: `JWT ${jwt}`
+          },
+          data: {
+            title: this.postHead,
+            body: this.postBody
+          }
         })
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+          .then(() => this.$router.push({ name: "home" }))
+          .catch(err => console.log(err));
+      }
     }
   }
 };

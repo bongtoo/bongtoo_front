@@ -7,17 +7,26 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    jwt: null,
+    jwt: false,
     isAuth: false
   },
   getters: {
     getAuth(state) {
-      return state.isAuth
+      return state.isAuth;
+    },
+    getJwt(state) {
+      return state.jwt;
     },
     getUsername(state) {
-      const ret = jwtDecoder(state.jwt)
-      console.log(ret.username)
-      return ret.username;
+      if (state.jwt) {
+        console.log('getAuth', state.jwt)
+        const ret = jwtDecoder(state.jwt)
+        console.log(ret.username)
+        return ret.username;
+      } else {
+        return false;
+      }
+
     }
   },
   mutations: {
@@ -26,26 +35,38 @@ export default new Vuex.Store({
       state.jwt = payload
     },
     setAuth(state, payload) {
-      state.auth = payload
+      state.isAuth = payload
     }
   },
   actions: {
     asynGetAuth({
       commit
     }) {
-      commit('setJwt', cookie.get('jwt'));
+      const jwt = cookie.get('jwt')
+      if (jwt !== "null") {
+        console.log(typeof (jwt))
+        console.log('not null asyncGetAuth', jwt)
+        commit('setJwt', jwt);
+      } else {
+        console.log('jwt :', jwt)
+
+      }
     },
+    // jwt를 확인한다.
     asyncVerifyJwt({
       state,
       commit
     }) {
-      console.log(state.jwt)
-      axios.post('/jwt/verify/', {
-        token: state.jwt
-      }).then((res) => {
-        commit('setAuth', true)
-        commit('setJwt', res.data.token)
-      }).catch(err => console.log(err))
+      if (state.jwt) {
+        axios.post('/jwt/verify/', {
+          token: state.jwt
+        }).then((res) => {
+          commit('setAuth', true)
+          commit('setJwt', res.data.token)
+        }).catch(err => console.log(err))
+      } else {
+        console.log('jwt :', state.jwt)
+      }
     }
   }
 })

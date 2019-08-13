@@ -5,16 +5,16 @@
       <span>봉투</span>
     </router-link>
     <span class="TheNavigation-Buttons">
-      <router-link v-if="!getAuth" :to="{name:'userPosts'}">
+      <router-link v-if="getUsername" :to="{name:'userPosts'}">
         <base-button :color="buttonColor">{{getUsername}}</base-button>
       </router-link>
-      <router-link v-if="!getAuth" :to="{name:'post'}">
+      <router-link v-if="getAuth" :to="{name:'post'}">
         <base-button :color="buttonColor">작성하기</base-button>
       </router-link>
-      <router-link v-if="getAuth" :to="{name:'signin'}" tag="span">
+      <router-link v-if="!getAuth" :to="{name:'signin'}" tag="span">
         <base-button :color="buttonColor">로그인</base-button>
       </router-link>
-      <router-link v-if="getAuth" :to="{name:'signup'}" tag="span">
+      <router-link v-if="!getAuth" :to="{name:'signup'}" tag="span">
         <base-button :color="buttonColor">회원가입</base-button>
       </router-link>
     </span>
@@ -33,7 +33,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getAuth", "getUsername"])
+    ...mapGetters(["getAuth","getUsername"])
   },
   watch: {
     $route: "fetchData"
