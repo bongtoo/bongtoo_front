@@ -17,7 +17,7 @@
       <router-link v-if="!getAuth" :to="{name:'signin'}" tag="span">
         <base-button :color="buttonColor">로그인</base-button>
       </router-link>
-      <router-link v-if="!getAuth" :to="{name:'signup'}" tag="span">
+      <router-link v-if="!getAuth" :to="{name:'category_signup'}" tag="span">
         <base-button :color="buttonColor">회원가입</base-button>
       </router-link>
     </span>

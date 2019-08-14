@@ -3,7 +3,7 @@
     <div class="TheBanner-Container contents">
       <h1 class="TheBanner-Head">보람을 나누는 공간, 봉투</h1>
       <pre class="TheBanner-Body" v-text="text"></pre>
-      <router-link :to="{name:'post'}" tag="span">
+      <router-link v-if="getAuth" :to="{name:'category_post'}">
         <base-button class="TheBanner-Postbuton">작성하기</base-button>
       </router-link>
       <div class="TheBanner-Search">
@@ -30,6 +30,7 @@ import backTop from "@/assets/icon/banner_background_top.svg";
 import backBottom from "@/assets/icon/banner_background_bottom.svg";
 import searchIcon from "@/assets/icon/search_blue";
 import activityList from "@/utility/activity.data";
+import { mapGetters } from 'vuex';
 export default {
   components: {
     "search-icon": searchIcon
@@ -49,7 +50,8 @@ export default {
       return this.checkedActivity.reduce((prv, val) => {
         return prv + `activites=${val}&`;
       }, "#");
-    }
+    },
+    ...mapGetters([['getAuth']])
   },
   methods: {
     search() {

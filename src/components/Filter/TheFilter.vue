@@ -9,7 +9,7 @@
         <recycle-icon />
       </span>
     </header>
-    <div class="FilterForm SelectBox">
+    <!-- <div class="FilterForm SelectBox">
       <div class="Info">
         <location-icon width="34px" color="ocean" />
         <div>봉사지역</div>
@@ -32,7 +32,7 @@
           @updated:checkd="v => selectedTown =v"
         ></base-select>
       </div>
-    </div>
+    </div> -->
     <div class="FilterForm Checkbox">
       <div class="Info">
         <subject-icon width="25px" color="ocean" />
@@ -40,7 +40,7 @@
       </div>
       <div class="ButtonGroup">
         <base-button
-          inputType="but"
+          inputType="checkbox"
           color="ocean"
           v-for="(item,index) in subjectList"
           :key="'subject'+index"
@@ -61,10 +61,10 @@
       </div>
       <div class="ButtonGroup">
         <base-button
-          inputType="but"
+          inputType="checkbox"
           color="ocean"
           v-for="(item,index) in activityList"
-          :key="'subject'+index"
+          :key="'activity'+index"
           type="line"
           class="ButtonGroup-Item"
           :name="item.name"
@@ -90,7 +90,8 @@ import volunteerActivity from "@/assets/icon/volunteer_activity.vue";
 import volunteerLocation from "@/assets/icon/volunteer_location.vue";
 import recycle from "@/assets/icon/recycle.vue";
 import filter from "@/assets/icon/filter.vue";
-import { setTimeout } from "timers";
+import subjectData from "@/utility/subject.data";
+import activityData from "@/utility/activity.data";
 
 export default {
   components: {
@@ -103,27 +104,12 @@ export default {
   data() {
     return {
       update: true,
-      selectedSubject: new Set(),
       selectedCity: "",
       selectedTown: "",
-      subjectList: [
-        { id: 1, name: "노인" },
-        { id: 2, name: "장애인" },
-        { id: 3, name: "아동" },
-        { id: 4, name: "청소년" },
-        { id: 5, name: "취약계층" },
-        { id: 6, name: "기타" }
-      ],
+      selectedSubject: new Set(),
+      subjectList: subjectData,
       selectedActivity: new Set(),
-      activityList: [
-        { id: 1, name: "사무" },
-        { id: 2, name: "학습" },
-        { id: 3, name: "식당" },
-        { id: 4, name: "외부활동" },
-        { id: 5, name: "환경미화" },
-        { id: 6, name: "치료" },
-        { id: 7, name: "기타" }
-      ]
+      activityList: activityData
     };
   },
   methods: {
@@ -131,7 +117,7 @@ export default {
       this.update = false;
       this.$nextTick(() => {
         this.update = true;
-        this.$router.replace({hash:'#'})
+        this.$router.replace({ hash: "#" });
         this.selectedSubject.clear();
         this.selectedActivity.clear();
       });

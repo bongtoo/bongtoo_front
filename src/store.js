@@ -3,12 +3,17 @@ import Vuex from 'vuex'
 import cookie from 'vue-cookie'
 import axios from './utility/axios'
 import jwtDecoder from 'jwt-decode'
+import {
+  stat
+} from 'fs';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     jwt: false,
-    isAuth: false
+    isAuth: false,
+    subject: false,
+    activity: false,
   },
   getters: {
     getAuth(state) {
@@ -26,7 +31,15 @@ export default new Vuex.Store({
       } else {
         return false;
       }
-
+    },
+    getCategory(state) {
+      if (state.subject || state.activity) {
+        return {
+          subject: state.subject,
+          activity: state.activity
+        }
+      }
+      return false
     }
   },
   mutations: {
@@ -36,6 +49,13 @@ export default new Vuex.Store({
     },
     setAuth(state, payload) {
       state.isAuth = payload
+    },
+    setCategory(state, {
+      activity,
+      subject
+    }) {
+      state.activity = activity
+      state.subject = subject
     }
   },
   actions: {
@@ -44,12 +64,11 @@ export default new Vuex.Store({
     }) {
       const jwt = cookie.get('jwt')
       if (jwt !== "null") {
-        console.log(typeof (jwt))
         console.log('not null asyncGetAuth', jwt)
         commit('setJwt', jwt);
+        commit('setAuth', true)
       } else {
         console.log('jwt :', jwt)
-
       }
     },
     // jwt를 확인한다.

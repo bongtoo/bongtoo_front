@@ -23,9 +23,20 @@ const router = new Router({
       component: () => import( /* webpackChunkName: "Signup" */ './views/Signup.vue')
     },
     {
-      path: '/category',
-      name: 'category',
-      component: () => import( /* webpackChunkName: "Category" */ './views/Category.vue')
+      path: '/category/signup',
+      name: 'category_signup',
+      component: () => import( /* webpackChunkName: "Category" */ './views/Category.vue'),
+      props: {
+        nextPage: 'signup'
+      }
+    },
+    {
+      path: '/category/post',
+      name: 'category_post',
+      component: () => import( /* webpackChunkName: "Category" */ './views/Category.vue'),
+      props: {
+        nextPage: 'post'
+      }
     },
     {
       path: '/post',

@@ -33,6 +33,7 @@ export default {
           this.$store.commit("setJwt", res.data.token);
         })
         .then(() => {
+          this.$store.commit("setAuth", true);
           this.$router.go(-1);
         });
     }

@@ -74,7 +74,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getJwt"])
+    ...mapGetters(["getJwt", "getCategory"])
   },
   methods: {
     handleChange(file, fileList) {
@@ -103,7 +103,9 @@ export default {
           },
           data: {
             title: this.postHead,
-            body: this.postBody
+            body: this.postBody,
+            activity:this.getCategory.activity,
+            subject:this.getCategory.subject
           }
         })
           .then(res => {
@@ -125,6 +127,15 @@ export default {
           });
       }
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (!vm.getCategory) {
+        alert('카테고리부터 정해주세요')
+        vm.$router.push({ name: "category_post" });
+      }
+      return true;
+    });
   }
 };
 </script>
