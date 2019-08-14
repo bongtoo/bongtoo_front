@@ -8,6 +8,9 @@
       <router-link v-if="getUsername" :to="{name:'userPosts'}">
         <base-button :color="buttonColor">{{getUsername}}</base-button>
       </router-link>
+      <a v-if="getUsername" @click="logout">
+        <base-button :color="buttonColor">로그아웃</base-button>
+      </a>
       <router-link v-if="getAuth" :to="{name:'post'}">
         <base-button :color="buttonColor">작성하기</base-button>
       </router-link>
@@ -23,6 +26,7 @@
 
 <script>
 const logo_color = require("@/assets/icon/logo_color.svg");
+import axios from "@/utility/axios";
 import { mapGetters } from "vuex";
 export default {
   data() {
@@ -33,12 +37,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getAuth","getUsername"])
+    ...mapGetters(["getAuth", "getUsername", "getJwt"])
   },
   watch: {
     $route: "fetchData"
   },
   methods: {
+    logout() {
+      this.$store.commit("setJwt", null);
+      this.$store.commit("setAuth", false);
+    },
     fetchData() {
       if (this.$router.currentRoute.name === "home") {
         console.log(this.$router.currentRoute.name);
@@ -69,7 +77,7 @@ export default {
   align-items: center;
   padding: 1% 1.3%;
   &-Logo {
-    all:unset;
+    all: unset;
     display: flex;
     align-items: center;
     cursor: pointer;
