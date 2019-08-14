@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from './store'
 
 Vue.use(Router)
 import Home from './views/Home'
 import createUserPosts from './components/User/CreateUserPosts.js'
 
-export default new Router({
+
+const router = new Router({
   mode: 'history',
   routes: [{
       path: '/',
@@ -15,9 +17,9 @@ export default new Router({
       path: '/signin',
       name: 'signin',
       component: () => import( /* webpackChunkName: "Signin" */ './views/Signin.vue')
-    },{
-      path:'/signup',
-      name:'signup',
+    }, {
+      path: '/signup',
+      name: 'signup',
       component: () => import( /* webpackChunkName: "Signup" */ './views/Signup.vue')
     },
     {
@@ -33,7 +35,7 @@ export default new Router({
     {
       path: '/search',
       name: 'search',
-      mode:'hash',
+      mode: 'hash',
       component: () => import( /* webpackChunkName: "Search" */ './views/Search')
     },
     {
@@ -57,3 +59,4 @@ export default new Router({
     }
   ]
 })
+export default router

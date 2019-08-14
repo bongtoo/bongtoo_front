@@ -37,11 +37,28 @@
 import volunteerSubject from "@/assets/icon/volunteer_subject.vue";
 import volunteerActivity from "@/assets/icon/volunteer_activity.vue";
 import volunteerLocation from "@/assets/icon/volunteer_location.vue";
+import { mapGetters } from "vuex";
 export default {
+  props: {
+    nextPage: {
+      default: false
+    }
+  },
   components: {
     "subject-icon": volunteerSubject,
     "activity-icon": volunteerActivity,
     "location-icon": volunteerLocation
+  },
+  computed: {
+    ...mapGetters(["getAuth"])
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (!vm.getAuth) {
+        vm.$router.push({ name: "home" });
+      }
+      return true;
+    });
   }
 };
 </script>
