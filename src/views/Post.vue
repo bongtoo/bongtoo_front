@@ -5,13 +5,13 @@
       <div class="Post-Form-Container">
         <div class="Post-Form-Image">
           <el-upload
-            :on-success="onSuccess"
             class="el-upload"
             :file-list="fileList"
             :on-change="handleChange"
             action="#"
             list-type="picture-card"
             :auto-upload="false"
+            multiple
           >
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
@@ -19,13 +19,6 @@
               <span class="el-upload-list__item-actions">
                 <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
                   <i class="el-icon-zoom-in"></i>
-                </span>
-                <span
-                  v-if="!disabled"
-                  class="el-upload-list__item-delete"
-                  @click="handleDownload(file)"
-                >
-                  <i class="el-icon-download"></i>
                 </span>
                 <span
                   v-if="!disabled"
@@ -56,7 +49,6 @@
         </div>
       </div>
       <div class="Post-Form-Button">
-        <!-- <base-button color="gray">임시저장</base-button> -->
         <span @click="submit">
           <base-button color="pupple">등록</base-button>
         </span>
@@ -72,6 +64,7 @@ import { async } from "q";
 export default {
   data() {
     return {
+      testImage: "",
       postHead: "",
       postBody: "",
       dialogImageUrl: "",
@@ -85,23 +78,22 @@ export default {
   },
   methods: {
     handleChange(file, fileList) {
-      this.fileList = fileList.slice(-3);
-    },
-    onSuccess(file) {
-      console.log(file);
+      this.fileList.push(file);
     },
     handleRemove(file) {
-      console.log(file);
+      this.fileList.pop();
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
-    handleDownload(file) {
-      console.log(file);
-    },
     submit() {
       const jwt = this.getJwt;
+      const formData = new FormData();
+      this.fileList.forEach(item => {
+        formData.append("image", item.raw, item.name);
+      });
+
       if (this.jwt || jwt !== "null") {
         axios({
           method: "post",
@@ -114,8 +106,23 @@ export default {
             body: this.postBody
           }
         })
-          .then(() => this.$router.push({ name: "home" }))
-          .catch(err => console.log(err));
+          .then(res => {
+            return res.data.id;
+          })
+          .catch(err => console.log(err))
+          .then(id => {
+            axios
+              .post(`/reviews/${id}/images/`, formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `JWT ${jwt}`
+                }
+              })
+              .then(res => {
+                this.$router.push({ name: "home" });
+              })
+              .catch(err => console.log(err));
+          });
       }
     }
   }
