@@ -8,7 +8,7 @@
       <router-link v-if="getUsername" :to="{name:'userPosts'}">
         <base-button :color="buttonColor">{{getUsername}}</base-button>
       </router-link>
-      <a v-if="getUsername" @click="logout">
+      <a v-if="getAuth" @click="logout">
         <base-button :color="buttonColor">로그아웃</base-button>
       </a>
       <router-link v-if="getAuth" :to="{name:'post'}">
