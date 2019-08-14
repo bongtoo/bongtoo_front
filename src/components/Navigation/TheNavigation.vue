@@ -1,6 +1,6 @@
 <template>
   <nav class="TheNavigation" :class="navColor">
-    <router-link :to="{name:'home'}" tag="span" class="TheNavigation-Logo">
+    <router-link :to="{name:'home'}" tag="a" class="TheNavigation-Logo">
       <img :src="logoColor" alt />
       <span>봉투</span>
     </router-link>
@@ -69,6 +69,7 @@ export default {
   align-items: center;
   padding: 1% 1.3%;
   &-Logo {
+    all:unset;
     display: flex;
     align-items: center;
     cursor: pointer;
