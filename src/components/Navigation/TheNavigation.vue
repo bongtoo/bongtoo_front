@@ -46,6 +46,7 @@ export default {
     logout() {
       this.$store.commit("setJwt", null);
       this.$store.commit("setAuth", false);
+      this.$router.push({ name: "home" });
     },
     fetchData() {
       if (this.$router.currentRoute.name === "home") {
