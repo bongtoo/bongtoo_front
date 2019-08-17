@@ -32,13 +32,13 @@
           @updated:checkd="v => selectedTown =v"
         ></base-select>
       </div>
-    </div> -->
+    </div>-->
     <div class="FilterForm Checkbox">
       <div class="Info">
         <subject-icon width="25px" color="ocean" />
         <div>봉사대상</div>
       </div>
-      <div class="ButtonGroup">
+      <div class="ButtonGroup" v-if="checkboxUpdate">
         <base-button
           inputType="checkbox"
           color="ocean"
@@ -47,7 +47,7 @@
           type="line"
           class="ButtonGroup-Item"
           :name="item.name"
-          :checked="selectedSubject.has(item.id)"
+          :checked="selectedSubject.has(String(item.id))"
           :value="item"
           :checkedData="selectedSubject"
           @update:checked="checkSubject"
@@ -59,7 +59,7 @@
         <activity-icon width="35px" color="ocean" />
         <div>봉사활동</div>
       </div>
-      <div class="ButtonGroup">
+      <div class="ButtonGroup" v-if="checkboxUpdate">
         <base-button
           inputType="checkbox"
           color="ocean"
@@ -68,7 +68,7 @@
           type="line"
           class="ButtonGroup-Item"
           :name="item.name"
-          :checked="selectedActivity.has(item.id)"
+          :checked="selectedActivity.has(String(item.id))"
           :value="item"
           :checkedData="selectedActivity"
           @update:checked="checkedActivity"
@@ -92,6 +92,7 @@ import recycle from "@/assets/icon/recycle.vue";
 import filter from "@/assets/icon/filter.vue";
 import subjectData from "@/utility/subject.data";
 import activityData from "@/utility/activity.data";
+import { constants } from "crypto";
 
 export default {
   components: {
@@ -104,6 +105,7 @@ export default {
   data() {
     return {
       update: true,
+      checkboxUpdate: true,
       selectedCity: "",
       selectedTown: "",
       selectedSubject: new Set(),
@@ -111,6 +113,9 @@ export default {
       selectedActivity: new Set(),
       activityList: activityData
     };
+  },
+  watch: {
+    $route: "fetchQuery"
   },
   methods: {
     initCategory() {
@@ -121,6 +126,32 @@ export default {
         this.selectedSubject.clear();
         this.selectedActivity.clear();
       });
+    },
+    refreshCheckbox() {
+      this.checkboxUpdate = false;
+      this.$nextTick(() => {
+        this.checkboxUpdate = true;
+      });
+    },
+    fetchQuery() {
+      const search = this.$route.hash.slice(1, -1);
+      console.log(search);
+      if (search) {
+        this.selectedSubject.clear();
+        this.selectedActivity.clear();
+        search.match(/(activites=[0-9])|(subjects=[0-9])/g).forEach(el => {
+          switch (el[0]) {
+            case "a":
+              this.selectedActivity.add(el.slice(-1));
+              break;
+            case "s":
+              this.selectedSubject.add(el.slice(-1));
+            default:
+              break;
+          }
+        });
+        this.refreshCheckbox();
+      }
     },
     checkedActivity(item) {
       this.chekdUpdate(item, this.selectedActivity);
@@ -147,6 +178,9 @@ export default {
         }, "");
       this.$router.replace({ hash: hash });
     }
+  },
+  created() {
+    this.fetchQuery();
   }
 };
 </script>
