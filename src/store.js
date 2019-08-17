@@ -40,6 +40,12 @@ export default new Vuex.Store({
         }
       }
       return false
+    },
+    getSubject(state) {
+      return state.subject
+    },
+    getActivity(state) {
+      return state.activity
     }
   },
   mutations: {

@@ -30,7 +30,7 @@ import backTop from "@/assets/icon/banner_background_top.svg";
 import backBottom from "@/assets/icon/banner_background_bottom.svg";
 import searchIcon from "@/assets/icon/search_blue";
 import activityList from "@/utility/activity.data";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   components: {
     "search-icon": searchIcon
@@ -38,7 +38,6 @@ export default {
   data() {
     return {
       checkedActivity: [],
-      activityList,
       text:
         "당신의 봉사활동, 간직하고 싶나요?\n보람을 봉투에 담아 사람들과 나눠보세요.\n서로의 따뜻한 마음으로.",
       backTop: backTop,
@@ -51,7 +50,10 @@ export default {
         return prv + `activites=${val}&`;
       }, "#");
     },
-    ...mapGetters([['getAuth']])
+    activityList() {
+      return activityList.map(item => item.name);
+    },
+    ...mapGetters([["getAuth"]])
   },
   methods: {
     search() {

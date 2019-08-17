@@ -74,7 +74,21 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getJwt", "getCategory"])
+    ...mapGetters(["getJwt", "getCategory"]),
+    activityList() {
+      return Array.from(this.getCategory.activity).map(item => {
+        return {
+          id: item
+        };
+      });
+    },
+    subjectList() {
+      return Array.from(this.getCategory.subject).map(item => {
+        return {
+          id: item
+        };
+      });
+    }
   },
   methods: {
     handleChange(file, fileList) {
@@ -95,6 +109,7 @@ export default {
       });
 
       if (this.jwt || jwt !== "null") {
+        console.log(this.getCategory);
         axios({
           method: "post",
           url: "/reviews/",
@@ -104,11 +119,12 @@ export default {
           data: {
             title: this.postHead,
             body: this.postBody,
-            activity:this.getCategory.activity,
-            subject:this.getCategory.subject
+            activity: this.activityList,
+            subject: this.subjectList
           }
         })
           .then(res => {
+            console.log(res);
             return res.data.id;
           })
           .catch(err => console.log(err))
@@ -123,7 +139,10 @@ export default {
               .then(res => {
                 this.$router.push({ name: "home" });
               })
-              .catch(err => console.log(err));
+              .catch(err => {
+                console.log(err);
+                this.$router.push({ name: "home" });
+              });
           });
       }
     }
@@ -131,7 +150,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (!vm.getCategory) {
-        alert('카테고리부터 정해주세요')
+        alert("카테고리부터 정해주세요");
         vm.$router.push({ name: "category_post" });
       }
       return true;

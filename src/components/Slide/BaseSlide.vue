@@ -1,10 +1,10 @@
 <template>
   <vue-glide v-bind="option" class="Slide">
     <vue-glide-slide v-for="(item,index) in data" :key="index">
-      <div class="SlideInfo">
+      <div class="SlideInfo" @click="$emit('updated:visible',item.id)">
         <div class="SlideInfo-Container">
           <h1 class="SlideInfo-Head" v-text="item.title"></h1>
-          <p class="SlideInfo-Body" v-text="item.body"></p>
+          <pre class="SlideInfo-Body" v-text="item.body"></pre>
         </div>
       </div>
       <div
@@ -29,13 +29,12 @@
 import { Glide, GlideSlide } from "vue-glide-js";
 import left_arrow from "@/assets/icon/left_arrow.vue";
 import right_arrow from "@/assets/icon/right_arrow.vue";
-
 export default {
   props: {
     option: {
       default: null
     },
-    data: { defualt: [] }
+    data: {}
   },
   name: "base-slide",
   components: {
@@ -43,6 +42,12 @@ export default {
     [GlideSlide.name]: GlideSlide,
     "left-arrow": left_arrow,
     "right-arrow": right_arrow
+  },
+  methods: {
+    watchDetailReview(id) {
+      console.log("click slide", id);
+      this.dialogVisible = true;
+    }
   }
 };
 </script>
