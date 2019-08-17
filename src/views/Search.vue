@@ -76,7 +76,7 @@ export default {
     },
     addReviewList() {
       axios
-        .get(`/api/search/reviews/?page=${this.reviewPage}&${this.query}`)
+        .get(`/search/reviews/?page=${this.reviewPage}&${this.query}`)
         .then(res => {
           this.reviewList = this.reviewList.concat(res.data.results);
         })

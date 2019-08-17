@@ -3,9 +3,6 @@ import Vuex from 'vuex'
 import cookie from 'vue-cookie'
 import axios from './utility/axios'
 import jwtDecoder from 'jwt-decode'
-import {
-  stat
-} from 'fs';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -14,6 +11,8 @@ export default new Vuex.Store({
     isAuth: false,
     subject: false,
     activity: false,
+    post: false,
+    comments:false
   },
   getters: {
     getAuth(state) {
@@ -21,6 +20,12 @@ export default new Vuex.Store({
     },
     getJwt(state) {
       return state.jwt;
+    },
+    getPost(state){
+      return state.post
+    },
+    getComments(state){
+      return state.comments
     },
     getUsername(state) {
       if (state.jwt) {
@@ -62,6 +67,12 @@ export default new Vuex.Store({
     }) {
       state.activity = activity
       state.subject = subject
+    },
+    setPost(state,payload){
+      state.post = payload
+    },
+    setComments(state,payload){
+      state.comments = payload
     }
   },
   actions: {

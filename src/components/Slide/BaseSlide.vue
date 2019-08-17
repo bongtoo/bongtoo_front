@@ -1,7 +1,7 @@
 <template>
   <vue-glide v-bind="option" class="Slide">
     <vue-glide-slide v-for="(item,index) in data" :key="index">
-      <div class="SlideInfo" @click="$emit('updated:visible',item.id)">
+      <div class="SlideInfo" @click="watchDetailReview(item.id)">
         <div class="SlideInfo-Container">
           <h1 class="SlideInfo-Head" v-text="item.title"></h1>
           <pre class="SlideInfo-Body" v-text="item.body"></pre>
@@ -29,6 +29,8 @@
 import { Glide, GlideSlide } from "vue-glide-js";
 import left_arrow from "@/assets/icon/left_arrow.vue";
 import right_arrow from "@/assets/icon/right_arrow.vue";
+import axios from "@/utility/axios";
+import { async } from "q";
 export default {
   props: {
     option: {
@@ -45,8 +47,22 @@ export default {
   },
   methods: {
     watchDetailReview(id) {
-      console.log("click slide", id);
-      this.dialogVisible = true;
+      axios
+        .get(`/reviews/${id}/`)
+        .then(res => {
+          console.log(res.data);
+          this.$store.commit("setPost", res.data);
+        })
+        .then(() => {
+          axios
+            .get(`/reviews/${id}/comments/`)
+            .then(res => {
+              this.$store.commit("setComments", res.data);
+            })
+            .then(() => {
+              this.$emit("updated:visible");
+            });
+        });
     }
   }
 };

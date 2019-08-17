@@ -10,7 +10,7 @@
       :data="reviewList"
       @updated:visible="toggleDialog"
     ></base-slide>
-    <el-dialog :visible.sync="dialogVisible">
+    <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false">
       <base-post></base-post>
     </el-dialog>
   </div>
@@ -49,13 +49,12 @@ export default {
     };
   },
   methods: {
-    toggleDialog(id) {
-      console.log(id);
+    toggleDialog() {
       this.dialogVisible = true;
     },
     addReviewList() {
       axios
-        .get(`/api/search/reviews/`)
+        .get(`/search/reviews/`)
         .then(res => {
           this.reviewList = this.reviewList.concat(res.data.results);
         })
