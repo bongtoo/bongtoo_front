@@ -11,6 +11,10 @@ import TheNavigationVue from "./components/Navigation/TheNavigation.vue";
 export default {
   components: {
     "the-navigation": TheNavigationVue
+  },
+  created() {
+    this.$store.dispatch("asynGetAuth");
+    this.$store.dispatch("asyncVerifyJwt");
   }
 };
 </script>

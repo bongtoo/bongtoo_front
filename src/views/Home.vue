@@ -2,22 +2,37 @@
   <div class="Home">
     <the-banner></the-banner>
     <div class="Home-moreReviewButton">
-      <base-button>리뷰 더보기</base-button>
+      <!-- <base-button>리뷰 더보기</base-button> -->
     </div>
-    <base-slide :option="slideOption" :data="data"></base-slide>
+    <base-slide
+      v-if="reviewList.length"
+      :option="slideOption"
+      :data="reviewList"
+      @updated:visible="toggleDialog"
+    ></base-slide>
+    <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false">
+      <base-post></base-post>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import the_banner from "../components/Banner/TheBanner";
 import BaseSlide from "../components/Slide/BaseSlide";
-import testSet from "../testset/home";
+import BasePost from "@/components/Post/BasePost";
+
+import axios from "@/utility/axios";
 
 export default {
   name: "home",
+  components: {
+    "the-banner": the_banner,
+    [BaseSlide.name]: BaseSlide,
+    "base-post": BasePost
+  },
   data() {
     return {
-      data: testSet,
+      reviewList: [],
       slideOption: {
         perView: 4,
         gap: 0,
@@ -28,18 +43,31 @@ export default {
         animationDuration: 270,
         rewind: false
       },
+      dialogVisible: false,
       selectValue: "",
       optionList: ["hi", "hello", "bye", "goodbye"]
     };
   },
-  components: {
-    "the-banner": the_banner,
-    [BaseSlide.name]: BaseSlide
+  methods: {
+    toggleDialog() {
+      this.dialogVisible = true;
+    },
+    addReviewList() {
+      axios
+        .get(`/search/reviews/`)
+        .then(res => {
+          this.reviewList = this.reviewList.concat(res.data.results);
+        })
+        .catch(err => console.log(err));
+    }
+  },
+  created() {
+    this.addReviewList();
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/css/index.scss";
 
 .Home {
@@ -50,6 +78,12 @@ export default {
     text-align: right;
     padding-top: 2%;
     padding-right: 2%;
+  }
+  .el-dialog {
+    width: 940px;
+    &__body {
+      padding: 0;
+    }
   }
 }
 </style>

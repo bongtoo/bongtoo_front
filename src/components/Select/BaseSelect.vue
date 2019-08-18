@@ -5,7 +5,8 @@
     :filterable="filterable"
     :placeholder="placeholder"
     :class="styleClass"
-    v-model="selectValue"
+    v-model="checkedData"
+    @change="$emit('update:checked',checkedData)"
   >
     <el-option
       class="option"
@@ -13,7 +14,7 @@
       v-for="(option,index) in optionList"
       :key="'option'+index"
       :label="option"
-      :value="index"
+      :value="index+1"
     ></el-option>
   </el-select>
 </template>
@@ -39,12 +40,13 @@ export default {
     filterable: {
       type: Boolean,
       default: false
-    }
+    },
+    optionList: {}
   },
   data() {
     return {
-      selectValue: "",
-      optionList: ["hi", "hello", "bye", "goodbye"],
+      checkedData: "",
+      // optionList: ["hi", "hello", "bye", "goodbye"],
       ColorList: ["", "white", "pupple", "ocean"]
     };
   },

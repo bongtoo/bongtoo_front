@@ -6,7 +6,18 @@
         <div>봉사대상</div>
       </div>
       <div class="ButtonGroup">
-        <base-button color="pupple" v-for="i in 8" :key="i" class="ButtonGroup-Item"></base-button>
+        <base-button
+          inputType="checkbox"
+          color="pupple"
+          v-for="(item,index) in subjectList"
+          :key="'subject'+index"
+          class="ButtonGroup-Item"
+          :name="item.name"
+          :checked="selectedSubject.has(item.id)"
+          :value="item"
+          :checkedData="selectedSubject"
+          @update:checked="checkSubject"
+        ></base-button>
       </div>
     </div>
     <div class="SearchForm Checkbox contents">
@@ -15,10 +26,21 @@
         <div>봉사활동</div>
       </div>
       <div class="ButtonGroup">
-        <base-button color="pupple" v-for="j in 8" :key="j" class="ButtonGroup-Item"></base-button>
+        <base-button
+          inputType="checkbox"
+          color="pupple"
+          v-for="(item,index) in activityList"
+          :key="'activity'+index"
+          class="ButtonGroup-Item"
+          :name="item.name"
+          :checked="selectedActivity.has(item.id)"
+          :value="item"
+          :checkedData="selectedActivity"
+          @update:checked="checkedActivity"
+        ></base-button>
       </div>
     </div>
-    <div class="SearchForm SelectBox contents">
+    <!-- <div class="SearchForm SelectBox contents">
       <div class="SearchForm-Info">
         <location-icon width="50px" />
         <div>봉사지역</div>
@@ -26,9 +48,11 @@
       <div class="SelectGroup">
         <base-select class="SelectItem" color="pupple" v-for="s in 3" :key="s"></base-select>
       </div>
-    </div>
+    </div>-->
     <div class="SearchForm submitButton">
-      <base-button color="pupple">다음</base-button>
+      <span @click="goNextPage">
+        <base-button color="pupple">다음</base-button>
+      </span>
     </div>
   </div>
 </template>
@@ -37,11 +61,66 @@
 import volunteerSubject from "@/assets/icon/volunteer_subject.vue";
 import volunteerActivity from "@/assets/icon/volunteer_activity.vue";
 import volunteerLocation from "@/assets/icon/volunteer_location.vue";
+import subjectData from "@/utility/subject.data";
+import activityData from "@/utility/activity.data";
+
+import { mapGetters } from "vuex";
 export default {
+  props: {
+    nextPage: {
+      default: false
+    }
+  },
   components: {
     "subject-icon": volunteerSubject,
     "activity-icon": volunteerActivity,
     "location-icon": volunteerLocation
+  },
+  data() {
+    return {
+      selectedCity: "",
+      selectedTown: "",
+      selectedSubject: new Set(),
+      subjectList: subjectData,
+      selectedActivity: new Set(),
+      activityList: activityData
+    };
+  },
+  computed: {
+    ...mapGetters(["getAuth"])
+  },
+  methods: {
+    goNextPage() {
+      this.$store.commit("setCategory", {
+        activity: this.selectedSubject,
+        subject: this.selectedSubject
+      });
+      this.$router.push({ name: this.nextPage });
+    },
+    checkedActivity(item) {
+      this.chekdUpdate(item, this.selectedActivity);
+    },
+    checkSubject(item) {
+      this.chekdUpdate(item, this.selectedSubject);
+    },
+    chekdUpdate(item, selecedList) {
+      const list = selecedList,
+        value = item.value,
+        isCheck = item.checked,
+        key = value.name,
+        val = value.id;
+      if (list.has(val)) list.delete(val);
+      else list.add(val);
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      console.log(vm.getAuth);
+      if (vm.nextPage === "post" && !vm.getAuth) {
+        vm.$router.push({ name: "home" });
+      }
+      return true;
+    });
   }
 };
 </script>

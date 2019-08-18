@@ -1,7 +1,16 @@
 <template>
-  <button class="BaseButton" :class="styleClass">
+  <button v-if="inputType==='button'" class="ButtonContainer BaseButton" :class="styleClass">
     <slot>버튼</slot>
   </button>
+  <label class="ButtonContainer" v-else>
+    <input
+      type="checkbox"
+      :value="value.id"
+      :checked="checked"
+      @change="$emit('update:checked',{value: value,checked:$event.target.checked})"
+    />
+    <span class="BaseButton" :class="styleClass" :for="value" v-text="name"></span>
+  </label>
 </template>
 
 <script>
@@ -18,11 +27,21 @@ export default {
     color: {
       type: String,
       default: "blue"
+    },
+    inputType: {
+      type: String,
+      default: "button"
+    },
+    name: {},
+    value: {},
+    checked: {
+      default: false
     }
   },
   name: "BaseButton",
   data() {
     return {
+      checkState: false,
       ColorList: ["", "white", "pupple", "ocean", "black"],
       TypeList: ["", "line", "fill"],
       RadiusList: ["", "button__radius1", "button__radius2"]
@@ -90,11 +109,31 @@ $button-font__pupple: $pupple;
     background: lighten($color: $line, $amount: $amont - 5);
     border-color: darken($color: $line, $amount: 10);
   }
+  @at-root .ButtonContainer > input:checked + span {
+    background-color: #b9b5ff;
+    // #A239C0
+  }
 }
-
-button {
+.ButtonContainer {
   width: 120px;
+  // padding: 9px;
+  font-size: 14px;
+  cursor: pointer;
+}
+label {
+  // width: 120px;
+  input {
+    display: block;
+    position: absolute;
+    visibility: hidden;
+  }
+  span {
+    display: block;
+  }
+}
+.BaseButton {
   padding: 9px;
+
   // line
   outline: none;
   box-sizing: border-box;
@@ -103,17 +142,17 @@ button {
   font-weight: 450;
   // transition: 0.1s;
   font-family: NanumGothic;
-
   @include config-color(
     $button-font__blue,
     $button-back__blue,
     $button-line__blue
   );
 }
-button.button__radius1 {
+
+.BaseButton.button__radius1 {
   border-radius: 18px;
 }
-button.button__radius2 {
+.BaseButton.button__radius2 {
   border-radius: 5px;
 }
 .line {
@@ -158,7 +197,9 @@ button.button__radius2 {
 .oceanfill {
   @include config-color(#fff, $ocean, $ocean);
 }
-
+.black {
+  @include config-color__line(#000, #fff, #000, 30);
+}
 .blackline {
   @include config-color__line(#000, #fff, #000, 30);
 }

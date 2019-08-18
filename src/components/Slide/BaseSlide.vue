@@ -1,13 +1,18 @@
 <template>
   <vue-glide v-bind="option" class="Slide">
-    <vue-glide-slide v-for="(item,index) in data.images" :key="index">
-      <div class="SlideInfo">
+    <vue-glide-slide v-for="(item,index) in data" :key="index">
+      <div class="SlideInfo" @click="watchDetailReview(item.id)">
         <div class="SlideInfo-Container">
-          <h1 class="SlideInfo-Head">포스트 대학생 2기</h1>
-          <p class="SlideInfo-Body">2년만에 하게 된 봉사. 이번엔 포스요 봉사를 갔어요. 신나 네 하하 와! 너무 최고인…</p>
+          <h1 class="SlideInfo-Head" v-text="item.title"></h1>
+          <pre class="SlideInfo-Body" v-text="item.body"></pre>
         </div>
       </div>
-      <div class="SlideBack" :style="{backgroundImage:`url(${item.url})`}"></div>
+      <div
+        class="SlideBack"
+        v-if="item.get_thumnail"
+        :style="{backgroundImage:`url(http://127.0.0.1:8000${item.get_thumnail.image})`}"
+      ></div>
+      <div class="SlideBack" v-else></div>
     </vue-glide-slide>
     <template slot="control">
       <button class="Slide-Button" data-glide-dir="<">
@@ -24,16 +29,14 @@
 import { Glide, GlideSlide } from "vue-glide-js";
 import left_arrow from "@/assets/icon/left_arrow.vue";
 import right_arrow from "@/assets/icon/right_arrow.vue";
-
+import axios from "@/utility/axios";
+import { async } from "q";
 export default {
   props: {
     option: {
       default: null
     },
-    data: {
-      type: Object,
-      default: null
-    }
+    data: {}
   },
   name: "base-slide",
   components: {
@@ -41,6 +44,26 @@ export default {
     [GlideSlide.name]: GlideSlide,
     "left-arrow": left_arrow,
     "right-arrow": right_arrow
+  },
+  methods: {
+    watchDetailReview(id) {
+      axios
+        .get(`/reviews/${id}/`)
+        .then(res => {
+          console.log(res.data);
+          this.$store.commit("setPost", res.data);
+        })
+        .then(() => {
+          axios
+            .get(`/reviews/${id}/comments/`)
+            .then(res => {
+              this.$store.commit("setComments", res.data);
+            })
+            .then(() => {
+              this.$emit("updated:visible");
+            });
+        });
+    }
   }
 };
 </script>
