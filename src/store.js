@@ -12,7 +12,7 @@ export default new Vuex.Store({
     subject: false,
     activity: false,
     post: false,
-    comments:false
+    comments: false
   },
   getters: {
     getAuth(state) {
@@ -21,18 +21,24 @@ export default new Vuex.Store({
     getJwt(state) {
       return state.jwt;
     },
-    getPost(state){
+    getPost(state) {
       return state.post
     },
-    getComments(state){
+    getComments(state) {
       return state.comments
     },
     getUsername(state) {
       if (state.jwt) {
-        console.log('getAuth', state.jwt)
         const ret = jwtDecoder(state.jwt)
-        console.log(ret.username)
         return ret.username;
+      } else {
+        return false;
+      }
+    },
+    getMyId(state) {
+      if (state.jwt) {
+        const ret = jwtDecoder(state.jwt)
+        return ret.user_id;
       } else {
         return false;
       }
@@ -68,10 +74,10 @@ export default new Vuex.Store({
       state.activity = activity
       state.subject = subject
     },
-    setPost(state,payload){
+    setPost(state, payload) {
       state.post = payload
     },
-    setComments(state,payload){
+    setComments(state, payload) {
       state.comments = payload
     }
   },
@@ -80,7 +86,7 @@ export default new Vuex.Store({
       commit
     }) {
       const jwt = cookie.get('jwt')
-      if (jwt !== "null") {
+      if (jwt && jwt !== "null") {
         console.log('not null asyncGetAuth', jwt)
         commit('setJwt', jwt);
         commit('setAuth', true)

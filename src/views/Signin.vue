@@ -6,7 +6,7 @@
     <span @click="signin">
       <base-button color="ocean" type="fill">로그인</base-button>
     </span>
-    <router-link :to="{name:'category'}">회원가입</router-link>
+    <router-link :to="{name:'category_signup'}">회원가입</router-link>
   </div>
 </template>
 

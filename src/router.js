@@ -25,7 +25,7 @@ const router = new Router({
     {
       path: '/category/signup',
       name: 'category_signup',
-      component: () => import( /* webpackChunkName: "Category" */ './views/Category.vue'),
+      component: () => import( /* webpackChunkName: "CategorySignup" */ './views/Category.vue'),
       props: {
         nextPage: 'signup'
       }
@@ -33,7 +33,7 @@ const router = new Router({
     {
       path: '/category/post',
       name: 'category_post',
-      component: () => import( /* webpackChunkName: "Category" */ './views/Category.vue'),
+      component: () => import( /* webpackChunkName: "CategoryPost" */ './views/Category.vue'),
       props: {
         nextPage: 'post'
       }
@@ -50,22 +50,16 @@ const router = new Router({
       component: () => import( /* webpackChunkName: "Search" */ './views/Search')
     },
     {
-      path: '/user',
+      path: '/user/:userId',
       component: () => import( /* webpakcChunkName: "User" */ './views/User.vue'),
       children: [{
-        path: '/',
+        path: '',
         name: 'userPosts',
-        component: createUserPosts('UserPostList'),
-        props: {
-          'url': 'http://www.kbsecuritynews.com/imgdata/kbsecuritynews_com/201904/2019041740338784.jpg'
-        }
+        component: createUserPosts('UserPostList', 'reviews')
       }, {
         path: 'likes',
         name: 'userLikes',
-        component: createUserPosts('UserLikeList'),
-        props: {
-          'url': 'https://pds.joins.com/news/component/newsis/201710/31/NISI20171031_0000061276_web.jpg'
-        }
+        component: createUserPosts('UserLikeList', 'likes')
       }]
     }
   ]

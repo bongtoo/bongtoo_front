@@ -11,30 +11,35 @@
         >작성하기</base-button>
       </router-link>
     </div>
-    <base-slide v-else :option="slideOption" :data="reviewList"></base-slide>
+    <base-slide v-else :option="slideOption" :data="reviewList" @updated:visible="toggleDialog"></base-slide>
     <div class="Search-Content">
       <div class="Search-Content-Container">
         <the-filter class="Search-Content-Filter" />
         <base-board :data="serviceList" @addList="addServiceList" class="Search-Content-Board" />
       </div>
     </div>
+    <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false">
+      <base-post></base-post>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import testSet from "../testset/home";
+import basePost from "@/components/Post/BasePost";
 import BaseSlide from "@/components/Slide/BaseSlide.vue";
 import axios from "@/utility/axios";
 export default {
-
   name: "Search",
   components: {
     "base-slide": BaseSlide,
     "the-filter": () => import("@/components/Filter/TheFilter.vue"),
-    "base-board": () => import("@/components/Board/BaseBoard.vue")
+    "base-board": () => import("@/components/Board/BaseBoard.vue"),
+    "base-post": basePost
   },
   data() {
     return {
+      dialogVisible: false,
       reviewList: [],
       serviceList: [],
       query: null,
@@ -65,6 +70,9 @@ export default {
       this.serviceList = [];
       this.addReviewList();
       this.addServiceList();
+    },
+    toggleDialog() {
+      this.dialogVisible = true;
     },
     addServiceList() {
       axios

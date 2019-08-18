@@ -12,7 +12,7 @@
 <script>
 import userHeader from "@/components/User/UserHeader";
 import userTab from "@/components/User/UserTab";
-import userPost from "@/components/User/UserPosts";
+
 export default {
   name: "User",
   data() {
@@ -23,8 +23,7 @@ export default {
   components: {
     "user-header": userHeader,
     "user-tab": userTab,
-    "user-post": userPost
-  }
+  },
 };
 </script>
 

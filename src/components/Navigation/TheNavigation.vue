@@ -5,7 +5,7 @@
       <span>봉투</span>
     </router-link>
     <span class="TheNavigation-Buttons">
-      <router-link v-if="getUsername" :to="{name:'userPosts'}">
+      <router-link v-if="getUsername" :to="{name:'userPosts',params:{userId:getMyId}}">
         <base-button :color="buttonColor">{{getUsername}}</base-button>
       </router-link>
       <a v-if="getAuth" @click="logout">
@@ -37,7 +37,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getAuth", "getUsername", "getJwt"])
+    ...mapGetters(["getAuth", "getUsername", "getJwt", "getMyId"])
   },
   watch: {
     $route: "fetchData"

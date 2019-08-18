@@ -31,7 +31,12 @@
           :src="'http://127.0.0.1:8000'+reviewData.user.profile_image"
         />
         <img v-show="!reviewData.user.profile_image" class="Header-Avatar" />
-        <div class="Header-Name" v-text="reviewData.user.username"></div>
+        <router-link
+          class="Header-Name link"
+          :to="{name:'userPosts',params:{userId:reviewData.user.id}}"
+        >
+          <div v-text="reviewData.user.username"></div>
+        </router-link>
         <div class="Header-Like" @click="submitLike">
           <img :src="redHeart" alt="like" srcset />
           <div>
@@ -53,7 +58,9 @@
             <img :src="'http://127.0.0.1:8000'+comment.created_by.profile_image" alt="avatar" />
           </div>
           <div class="Comment-Body">
-            <b>{{comment.created_by.username}}</b>
+            <router-link class="link" :to="{name:'userPosts',params:{userId:comment.created_by.id}}">
+              <b>{{comment.created_by.username}}</b>
+            </router-link>
             {{comment.body}}
             <div class="Comment-Date" v-text="getDate(comment.created_at)"></div>
           </div>
@@ -68,19 +75,24 @@
 </template>
 
 <script>
+// external
 import { Glide, GlideSlide } from "vue-glide-js";
-import left_arrow from "@/assets/icon/left_arrow.vue";
-import right_arrow from "@/assets/icon/right_arrow.vue";
-import reviewData from "@/utility/postest.data";
-import axios from "@/utility/axios";
 import { subDays, distanceInWordsToNow } from "date-fns";
 import koLocal from "date-fns/locale/ko";
-import { mapGetters } from "vuex";
+// icon
+import left_arrow from "@/assets/icon/left_arrow.vue";
+import right_arrow from "@/assets/icon/right_arrow.vue";
 const redHeart = require("@/assets/icon/redheart.png");
 const hashtag = require("@/assets/icon/hashtag.png");
+// utility
+import reviewData from "@/utility/postest.data";
+import axios from "@/utility/axios";
+import { goUserView } from "@/utility/mixin";
+import { mapGetters } from "vuex";
 
 export default {
   name: "base-post",
+  mixins: [goUserView],
   data() {
     return {
       redHeart,
@@ -247,6 +259,7 @@ export default {
       padding-bottom: 30px;
     }
     &-Comment {
+      height: 56%;
       max-height: 250px;
       color: #000;
       font-size: 16px;
