@@ -13,6 +13,7 @@
 <script>
 const logo_color = require("@/assets/icon/logo_color.svg");
 import axios from "@/utility/axios";
+import { all } from "q";
 export default {
   data() {
     return {
@@ -34,8 +35,11 @@ export default {
         })
         .then(() => {
           this.$store.commit("setAuth", true);
-          this.$router.go(-1);
-        });
+        })
+        .catch(err => {
+          alert(err);
+        })
+        .finally(() => this.$router.go(-1));
     }
   }
 };

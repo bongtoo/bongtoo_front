@@ -9,7 +9,7 @@
       <div
         v-if="post.get_thumnail"
         class="UserPosts-PostImg"
-        :style="{backgroundImage:`url(http://127.0.0.1:8000${post.get_thumnail.image})`}"
+        :style="{backgroundImage:`url(${imageUrl(BASEURL,post.get_thumnail.image)})`}"
       ></div>
       <div v-else class="UserPosts-PostImg"></div>
     </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import axios from "@/utility/axios";
+import axios, { BASEURL } from "@/utility/axios";
 import basePost from "@/components/Post/BasePost";
 export default {
   props: ["url"],
@@ -31,10 +31,15 @@ export default {
   data() {
     return {
       postList: null,
+      BASEURL,
       dialogVisible: false
     };
   },
   methods: {
+    imageUrl(BASEURL, image_url) {
+      console.log("baseurl", BASEURL, "image_url", image_url);
+      return BASEURL + image_url;
+    },
     watchDetailReview(id) {
       axios
         .get(`/reviews/${id}/`)

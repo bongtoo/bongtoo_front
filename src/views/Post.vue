@@ -127,7 +127,10 @@ export default {
             console.log(res);
             return res.data.id;
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+            console.log(err);
+            console.log(jwt);
+          })
           .then(id => {
             axios
               .post(`/reviews/${id}/images/`, formData, {

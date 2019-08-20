@@ -10,7 +10,7 @@
       <div
         class="SlideBack"
         v-if="item.get_thumnail"
-        :style="{backgroundImage:`url(http://127.0.0.1:8000${item.get_thumnail.image})`}"
+        :style="{backgroundImage:`url(${BASEURL}${item.get_thumnail.image})`}"
       ></div>
       <div class="SlideBack" v-else></div>
     </vue-glide-slide>
@@ -29,16 +29,20 @@
 import { Glide, GlideSlide } from "vue-glide-js";
 import left_arrow from "@/assets/icon/left_arrow.vue";
 import right_arrow from "@/assets/icon/right_arrow.vue";
-import axios from "@/utility/axios";
-import { async } from "q";
+import axios, { BASEURL } from "@/utility/axios";
 export default {
+  name: "base-slide",
   props: {
     option: {
       default: null
     },
     data: {}
   },
-  name: "base-slide",
+  data() {
+    return {
+      BASEURL
+    };
+  },
   components: {
     [Glide.name]: Glide,
     [GlideSlide.name]: GlideSlide,

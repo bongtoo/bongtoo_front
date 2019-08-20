@@ -6,7 +6,7 @@
           <div
             class="Slide-Back"
             v-if="item.image"
-            :style="{backgroundImage:`url(http://127.0.0.1:8000${item.image})`}"
+            :style="{backgroundImage:`url(${BASEURL}${item.image})`}"
           ></div>
           <div class="SlideBack" v-else></div>
         </vue-glide-slide>
@@ -28,7 +28,7 @@
         <img
           class="Header-Avatar"
           v-show="reviewData.user.profile_image"
-          :src="'http://127.0.0.1:8000'+reviewData.user.profile_image"
+          :src="BASEURL+reviewData.user.profile_image"
         />
         <img v-show="!reviewData.user.profile_image" class="Header-Avatar" />
         <router-link
@@ -55,7 +55,7 @@
       <div class="BaseReview-Review-Comment">
         <div class="Comment" v-for="(comment,index) in comments" :key="'comment'+index">
           <div class="Comment-Avatar">
-            <img :src="'http://127.0.0.1:8000'+comment.created_by.profile_image" alt="avatar" />
+            <img :src="BASEURL+comment.created_by.profile_image" alt="avatar" />
           </div>
           <div class="Comment-Body">
             <router-link class="link" :to="{name:'userPosts',params:{userId:comment.created_by.id}}">
@@ -86,7 +86,7 @@ const redHeart = require("@/assets/icon/redheart.png");
 const hashtag = require("@/assets/icon/hashtag.png");
 // utility
 import reviewData from "@/utility/postest.data";
-import axios from "@/utility/axios";
+import axios,{BASEURL} from "@/utility/axios";
 import { goUserView } from "@/utility/mixin";
 import { mapGetters } from "vuex";
 
@@ -95,6 +95,7 @@ export default {
   mixins: [goUserView],
   data() {
     return {
+      BASEURL,
       redHeart,
       hashtag,
       activeIndex: 0,

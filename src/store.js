@@ -100,6 +100,7 @@ export default new Vuex.Store({
       commit
     }) {
       if (state.jwt) {
+        console.log(state.jwt)
         axios.post('/jwt/verify/', {
           token: state.jwt
         }).then((res) => {

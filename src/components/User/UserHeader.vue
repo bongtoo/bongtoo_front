@@ -3,7 +3,8 @@
     <div class="UserHeader-ImageBox">
       <div
         class="UserHeader-Image"
-        :style="{backgroundImage:`url(http://127.0.0.1:8000${userData.profile_image})`}"
+        v-if="userData.profile_image"
+        :style="{backgroundImage:`url(${imageUrl(BASEURL,userData.profile_image)})`}"
       ></div>
     </div>
     <div class="UserHeader-Info">
@@ -24,16 +25,23 @@
 </template>
 
 <script>
-import axios from "@/utility/axios";
+import axios, { BASEURL } from "@/utility/axios";
 export default {
   data() {
     return {
+      BASEURL,
       userData: false
     };
   },
   computed: {
     isMinePage() {
       return this.$store.getters.getMyId === this.$route.params.userId;
+    }
+  },
+  methods: {
+    imageUrl(BASEURL, image_url) {
+      console.log("baseurl", BASEURL, "image_url", image_url);
+      return BASEURL + image_url;
     }
   },
   created() {
