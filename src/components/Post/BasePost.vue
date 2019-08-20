@@ -11,14 +11,13 @@
           <div class="SlideBack" v-else></div>
         </vue-glide-slide>
         <template slot="control">
-          <span class="Slide-Bullet__bg">
-            <button
-              v-for="(item,index) in reviewData.images"
-              :key="'bullet'+index"
-              class="Slide-Bullet"
-              :class="{is_active:activeIndex==index}"
-              :data-glide-dir="'='+index"
-            ></button>
+          <span
+            class="Slide-Bullet__bg"
+            v-for="(item,index) in reviewData.images"
+            :key="'bullet'+index"
+            :data-glide-dir="'='+index"
+          >
+            <button class="Slide-Bullet" :class="{is_active:activeIndex==index}"></button>
           </span>
         </template>
       </vue-glide>
@@ -58,7 +57,10 @@
             <img :src="BASEURL+comment.created_by.profile_image" alt="avatar" />
           </div>
           <div class="Comment-Body">
-            <router-link class="link" :to="{name:'userPosts',params:{userId:comment.created_by.id}}">
+            <router-link
+              class="link"
+              :to="{name:'userPosts',params:{userId:comment.created_by.id}}"
+            >
               <b>{{comment.created_by.username}}</b>
             </router-link>
             {{comment.body}}
@@ -86,7 +88,7 @@ const redHeart = require("@/assets/icon/redheart.png");
 const hashtag = require("@/assets/icon/hashtag.png");
 // utility
 import reviewData from "@/utility/postest.data";
-import axios,{BASEURL} from "@/utility/axios";
+import axios, { BASEURL } from "@/utility/axios";
 import { goUserView } from "@/utility/mixin";
 import { mapGetters } from "vuex";
 
