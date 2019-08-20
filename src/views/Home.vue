@@ -10,7 +10,7 @@
       :data="reviewList"
       @updated:visible="toggleDialog"
     ></base-slide>
-    <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false">
+    <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" height="50%">
       <base-post></base-post>
     </el-dialog>
   </div>

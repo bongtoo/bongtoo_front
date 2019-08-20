@@ -1,7 +1,12 @@
 <template>
   <div class="BaseReview">
     <section class="BaseReview-Image">
-      <vue-glide v-bind="glideOption" class="Slide" v-model="activeIndex">
+      <vue-glide
+        v-if="reviewData.images.length!==0"
+        v-bind="glideOption"
+        class="Slide"
+        v-model="activeIndex"
+      >
         <vue-glide-slide v-for="(item,index) in reviewData.images" :key="index">
           <div
             class="Slide-Back"
@@ -21,6 +26,7 @@
           </span>
         </template>
       </vue-glide>
+      <div v-else class="BaseReview-Image none">이미지가 없습니다.</div>
     </section>
     <section class="BaseReview-Review">
       <div class="BaseReview-Review-Header">
@@ -199,10 +205,18 @@ export default {
 .BaseReview {
   // width: 900px;
   height: 100%;
+  min-height: 440px;
   display: flex;
 
   &-Image {
     width: 55%;
+    &.none {
+      height: 100%;
+      width: 100%;
+      font-size: 20px;
+      text-align: center;
+      background-color: rgb(163, 163, 163);
+    }
   }
   &-Review {
     width: 45%;
