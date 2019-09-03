@@ -1,8 +1,8 @@
 <template>
   <div class="Signin">
     <img class="Signin-Logo" :src="logo" alt="logo" />
-    <input class="Signin-Input" type="text" v-model="id" />
-    <input class="Signin-Input" type="password" v-model="pw" />
+    <input class="Signin-Input" placeholder="ID" type="text" v-model="id" />
+    <input class="Signin-Input" placeholder="Password" type="password" v-model="pw" />
     <span @click="signin">
       <base-button color="ocean" type="fill">로그인</base-button>
     </span>

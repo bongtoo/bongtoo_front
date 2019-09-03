@@ -1,9 +1,9 @@
 import axios from 'axios'
 const URL = {
   DEV: 'http://127.0.0.1:8000',
-  EB: 'http://bongoto-api-dev.us-west-2.elasticbeanstalk.com'
+  PRODUCT: 'https://pure-meadow-81014.herokuapp.com'
 }
-export const BASEURL = URL.EB
+export const BASEURL = URL.PRODUCT
 
 export default axios.create({
   baseURL: BASEURL
